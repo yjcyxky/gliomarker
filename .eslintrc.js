@@ -10,7 +10,7 @@ module.exports = {
   rules: {
     'space-before-function-paren': 'off',
     'no-console': 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warning' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'generator-star-spacing': 'off',
     'no-mixed-operators': 0,
     'vue/max-attributes-per-line': [
