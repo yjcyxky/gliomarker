@@ -5,6 +5,7 @@ import app from './modules/app'
 import user from './modules/user'
 import knowledge from './modules/knowledge'
 import paper from './modules/paper'
+import biomarker from './modules/biomarker'
 
 // default router permission control
 import permission from './modules/permission'
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     user,
     knowledge,
     paper,
+    biomarker,
     permission
   },
   state: {},

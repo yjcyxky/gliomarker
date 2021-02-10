@@ -79,58 +79,61 @@ const paper = {
     }
   },
   actions: {
-    downloadPaper({ state }, doi) {
-      if (doi.length > 0) {
-        const source = state.baseUrl + doi
-        window.open(source, '_blank')
-      } else {
-        this.$message.warn("Oops, can't found the full paper.")
-      }
-    },
     getPaperList({ commit, state }, payload) {
       commit('setLoading', true)
       payload = Object.assign(payload, state.searchOptions)
-      return PaperService.getPaperList(payload)
-        .then(response => {
-          commit('setPaperList', response.results)
-          commit('setTotalItems', response.count)
-        })
-        .catch(error => {
-          this.$message.error(error)
-        })
-        .finally(() => {
-          commit('setLoading', false)
-        })
-    },
-    setCurrentPaper({ commit }, paperId) {
-      return PaperService.fetchPaperById(paperId)
-        .then(response => {
-          commit('setPaper', response)
-        })
-        .catch(error => {
-          this.$message.error(error)
-        })
-    },
-    updatePaper({ commit }, data) {
-      PaperService.updatePaper(data.id, data)
-        .then(response => {
-          commit('updatePaper', response)
-        })
-        .catch(error => {
-          this.$message.error(error)
-        })
-    },
-    deletePaper({ commit, state }) {
-      for (const paper of state.selected) {
-        PaperService.deletePaper(paper.pmid)
-          .then(() => {
-            commit('deletePaper', paper.pmid)
+      return new Promise((resolve, reject) => {
+        PaperService.getPaperList(payload)
+          .then(response => {
+            commit('setPaperList', response.results)
+            commit('setTotalItems', response.count)
+            resolve(response)
           })
           .catch(error => {
-            this.$message.error(error)
+            reject(error)
           })
-      }
-      commit('resetSelected')
+          .finally(() => {
+            commit('setLoading', false)
+          })
+      })
+    },
+    setCurrentPaper({ commit }, paperId) {
+      return new Promise((resolve, reject) => {
+        PaperService.fetchPaperById(paperId)
+          .then(response => {
+            commit('setPaper', response)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    updatePaper({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        PaperService.updatePaper(data.id, data)
+          .then(response => {
+            commit('updatePaper', response)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
+    deletePaper({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        for (const paper of state.selected) {
+          PaperService.deletePaper(paper.pmid)
+            .then(() => {
+              commit('deletePaper', paper.pmid)
+            })
+            .catch(error => {
+              reject(error)
+            })
+        }
+        commit('resetSelected')
+      })
     },
     approve({ commit, getters }) {
       const paperId = getters.currentPaper.pmid
@@ -141,13 +144,16 @@ const paper = {
       const data = {
         status: status
       }
-      PaperService.approvePaper(paperId, data)
-        .then(response => {
-          commit('updatePaper', response)
-        })
-        .catch(error => {
-          this.$message.error(error)
-        })
+      return new Promise((resolve, reject) => {
+        PaperService.approvePaper(paperId, data)
+          .then(response => {
+            commit('updatePaper', response)
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
     }
   }
 }

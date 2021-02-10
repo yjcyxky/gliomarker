@@ -80,6 +80,7 @@ const knowledge = {
   },
   actions: {
     getKnowledgeList({ commit, state }, payload) {
+      console.log('Knowledge Detail: ', payload)
       commit('setLoading', true)
       payload = Object.assign(payload, state.searchOptions)
       return new Promise((resolve, reject) => {

@@ -85,6 +85,7 @@ export default {
   },
   methods: {
     showKnowledgeDetail: function(paperId) {
+      console.log('Show Knownledge Detail: ', paperId)
       this.$router.push({
         name: 'knowledge-detail',
         params: {

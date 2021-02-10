@@ -1,0 +1,196 @@
+@title-color: #409eff;
+@section-title-font-size: 1.2rem;
+@knowledge-section-border-color: #8d8d8d;
+
+.knowledge-detail-page {
+  border-radius: 5px;
+  border: 1px solid #e8e8e8;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 35px 0px 10px;
+
+  .title-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 0px;
+
+    .title {
+      display: flex;
+      font-size: 1.4rem;
+      font-weight: bold;
+      align-items: center;
+      color: @title-color;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    .button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+
+      .el-button {
+        display: flex;
+        flex-direction: row;
+        margin: 5px 5px 5px 0px;
+
+        span {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .details {
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+
+    span {
+      margin-right: 20px;
+    }
+  }
+
+  .show-window {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    // margin-top: 10px;
+
+    .content,
+    .detail,
+    .image {
+      border: 1px solid @knowledge-section-border-color;
+      border-radius: 5px;
+      padding: 20px 30px;
+      line-height: 150%;
+      font-size: 1rem;
+      text-align: justify;
+      margin: 10px 0px;
+      max-height: 450px;
+      overflow: scroll;
+    }
+
+    .content {
+      .header {
+        display: flex;
+        margin-bottom: 10px;
+      }
+
+      .paper-content {
+        p {
+          height: 350px;
+          overflow: scroll;
+        }
+      }
+    }
+
+    .content::-webkit-scrollbar,
+    .detail::-webkit-scrollbar,
+    .paper-content > p::-webkit-scrollbar {
+      display: none;
+    }
+
+    .image {
+      img {
+        width: 100%;
+      }
+    }
+
+    .item {
+      margin-bottom: 20px;
+
+      .title {
+        font-size: @section-title-font-size;
+        font-weight: bold;
+        color: @title-color;
+        margin-bottom: 5px;
+      }
+
+      .tag-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-height: 50px;
+        overflow: hidden;
+
+        span {
+          display: flex;
+          align-items: center;
+          height: 20px;
+          border: 1px solid #8d8d8d;
+          padding: 1px 8px;
+          border-radius: 20px;
+          margin-right: 5px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .detail {
+      text-align: justify;
+
+      .title {
+        font-size: @section-title-font-size;
+        color: @title-color;
+        font-weight: bold;
+      }
+
+      .abstract,
+      .author,
+      .keyword,
+      .link {
+        margin-top: 5px;
+      }
+
+      .link {
+        display: flex;
+        flex-direction: row;
+
+        .left {
+          display: flex;
+          justify-content: flex-start;
+        }
+
+        .right {
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+  }
+
+  .data-visulization,
+  .recommendation {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+
+    .container,
+    .summary {
+      border: 1px solid @knowledge-section-border-color;
+      border-radius: 5px;
+      padding: 30px;
+      margin: 10px 0px;
+    }
+
+    .summary {
+    }
+  }
+}

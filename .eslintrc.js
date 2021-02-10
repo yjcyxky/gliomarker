@@ -10,13 +10,13 @@ module.exports = {
   rules: {
     'space-before-function-paren': 'off',
     'no-console': 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warning' : 'off',
     'generator-star-spacing': 'off',
     'no-mixed-operators': 0,
     'vue/max-attributes-per-line': [
       2,
       {
-        'singleline': 5,
+        'singleline': 8,
         'multiline': {
           'max': 1,
           'allowFirstLine': false

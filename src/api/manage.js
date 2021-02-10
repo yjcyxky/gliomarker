@@ -1,4 +1,5 @@
 import { axios } from '@/utils/request'
+import rawAxios from 'axios'
 
 const api = {
   user: '/user',
@@ -66,5 +67,13 @@ export function saveSub(sub) {
     url: '/sub',
     method: sub.id === 0 ? 'post' : 'put',
     data: sub
+  })
+}
+
+export function validateGene(gene) {
+  return rawAxios.get('http://rest.genenames.org/fetch/symbol/' + gene, {
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 }

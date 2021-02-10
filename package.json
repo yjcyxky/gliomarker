@@ -13,6 +13,7 @@
   "dependencies": {
     "@ant-design-vue/pro-layout": "^1.0.7",
     "@antv/data-set": "^0.10.2",
+    "alasql": "^0.6.5",
     "ant-design-vue": "^1.7.2",
     "axios": "^0.19.0",
     "core-js": "^3.1.2",
@@ -21,6 +22,7 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.filter": "^4.6.0",
     "lodash.get": "^4.4.2",
+    "lodash.map": "^4.6.0",
     "lodash.orderby": "^4.6.0",
     "lodash.pick": "^4.4.0",
     "lodash.sorteduniq": "^4.2.0",

@@ -1,4 +1,4 @@
-import ApiService from '@/api/paper'
+import ApiService from '@/api/service'
 
 class PaperService {
   constructor() {

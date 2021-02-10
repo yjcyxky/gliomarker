@@ -12,7 +12,7 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: 'menu.home' },
-    redirect: '/knowledge-point',
+    redirect: '/knowledge',
     children: [
       {
         path: '/home',
@@ -25,7 +25,7 @@ export const asyncRouterMap = [
         path: '/biomarker',
         name: 'biomarker',
         hidden: false,
-        component: () => import('@/views/about/Help'),
+        component: () => import('@/views/biomarker/QueryTable'),
         meta: { title: 'Biomarker', icon: 'filter', permission: ['dashboard'], keepAlive: false }
       },
       {
@@ -36,17 +36,24 @@ export const asyncRouterMap = [
         meta: { title: 'Download', icon: 'download', permission: ['dashboard'], keepAlive: false }
       },
       {
-        path: '/knowledge-point',
-        name: 'knowledge-point',
+        path: '/knowledge',
+        name: 'knowledge',
         hidden: false,
-        component: () => import('@/views/knowledge-point/SearchPage'),
-        meta: { title: 'Knowledge Point', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
+        component: () => import('@/views/knowledge/SearchPage'),
+        meta: { title: 'Knowledge', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
+      },
+      {
+        path: '/knowledge/:paperId',
+        name: 'knowledge-detail',
+        hidden: true,
+        component: () => import('@/views/knowledge/KnowledgeDetail'),
+        meta: { title: 'Knowledge Details', icon: 'snippets', permission: ['dashboard'], keepAlive: false }
       },
       {
         path: '/analysis',
         name: 'analysis',
         hidden: false,
-        component: () => import('@/views/knowledge-point/SearchPage'),
+        component: () => import('@/views/about/Help'),
         meta: { title: 'Analysis', icon: 'bar-chart', permission: ['dashboard'], keepAlive: true }
       },
       // Help
