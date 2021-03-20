@@ -1,4 +1,5 @@
 import rawAxios from 'axios'
+import { filter } from 'lodash'
 
 class BiomarkerService {
   getBiomarkerList() {
@@ -14,7 +15,29 @@ class BiomarkerService {
     })
   }
 
-  fetchBiomarkerById(knowledgeId) {
+  getBiomarker(pmid) {
+    return new Promise((resolve, reject) => {
+      this.getBiomarkerList()
+        .then(response => {
+          const items = filter(response, item => {
+            return item.pmid === pmid
+          })
+
+          console.log('getBiomarker: ', response, items)
+
+          if (items.length === 1) {
+            resolve(items[0])
+          } else {
+            resolve({})
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  }
+
+  fetchKnowledgeById(knowledgeId) {
     return this.request.get(`/knowledges/${knowledgeId}`)
   }
 }

@@ -14,7 +14,8 @@ const biomarker = {
         key: 'biomarker',
         visible: true,
         width: 240,
-        align: 'center'
+        align: 'center',
+        scopedSlots: { customRender: 'id' }
       },
       {
         title: 'Symbol',
@@ -22,7 +23,8 @@ const biomarker = {
         key: 'gene_symbol',
         visible: true,
         width: 150,
-        align: 'center'
+        align: 'center',
+        scopedSlots: { customRender: 'geneSymbol' }
       },
       {
         title: 'PMID',
@@ -250,16 +252,33 @@ const biomarker = {
           })
       })
     },
+    getBiomarker({ commit, state }, biomarkerName) {
+      return new Promise((resolve, reject) => {
+        BiomarkerService.getBiomarker(biomarkerName)
+          .then(response => {
+            resolve(response)
+          })
+          .catch(error => {
+            reject(error)
+          })
+      })
+    },
     getBiomarkerList({ commit, state }, payload) {
       commit('setLoading', true)
       payload = Object.assign(payload, state.searchOptions)
       return new Promise((resolve, reject) => {
         BiomarkerService.getBiomarkerList()
           .then(response => {
-            const total = alasql('SELECT * FROM ?', [response]).length
-            const { limit, offset } = payload
+            const { limit, offset, q } = payload
+            let query = `SELECT * FROM ?`
+            if (q) {
+              query = `SELECT * FROM ? WHERE gene_symbol LIKE "${q}%"`
+            }
+
+            const total = alasql(query, [response]).length
+
             alasql
-              .promise(`SELECT * FROM ? ORDER BY gene_symbol LIMIT ${limit} OFFSET ${offset}`, [response])
+              .promise(query + ` ORDER BY gene_symbol LIMIT ${limit} OFFSET ${offset}`, [response])
               .then(res => {
                 commit('setBiomarkerList', res)
                 commit('setTotalItems', total)

@@ -12,13 +12,13 @@ export const asyncRouterMap = [
     name: 'index',
     component: BasicLayout,
     meta: { title: 'menu.home' },
-    redirect: '/knowledge',
+    redirect: '/home',
     children: [
       {
         path: '/home',
         name: 'home',
         hidden: false,
-        component: () => import('@/views/about/Help'),
+        component: () => import('@/views/dashboard/Home'),
         meta: { title: 'Home', icon: 'home', permission: ['dashboard'], keepAlive: false }
       },
       {
@@ -27,6 +27,14 @@ export const asyncRouterMap = [
         hidden: false,
         component: () => import('@/views/biomarker/QueryTable'),
         meta: { title: 'Biomarker', icon: 'filter', permission: ['dashboard'], keepAlive: false }
+      },
+      {
+        path: '/biomarker-details/:biomarkerId',
+        name: 'biomarker-details',
+        hidden: true,
+        component: () => import('@/views/biomarker/BiomarkerDetails'),
+        props: (route) => ({ biomarkerId: route.params.biomarkerId }),
+        meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: false }
       },
       {
         path: '/download',
@@ -47,12 +55,13 @@ export const asyncRouterMap = [
         name: 'knowledge-detail',
         hidden: true,
         component: () => import('@/views/knowledge/KnowledgeDetail'),
+        props: (route) => ({ paperId: route.params.paperId }),
         meta: { title: 'Knowledge Details', icon: 'snippets', permission: ['dashboard'], keepAlive: false }
       },
       {
         path: '/analysis',
         name: 'analysis',
-        hidden: false,
+        hidden: true,
         component: () => import('@/views/about/Help'),
         meta: { title: 'Analysis', icon: 'bar-chart', permission: ['dashboard'], keepAlive: true }
       },
@@ -61,8 +70,30 @@ export const asyncRouterMap = [
         path: '/about',
         name: 'about',
         hidden: false,
-        component: () => import('@/views/about/Help'),
-        meta: { title: 'About', icon: 'question-circle', permission: ['dashboard'], keepAlive: false }
+        component: RouteView,
+        meta: { title: 'About', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
+        children: [
+          {
+            path: 'https://www.yuque.com/prophet-project/help/about-us',
+            name: 'about-us',
+            meta: { title: 'About us', target: '_blank', icon: 'team' }
+          },
+          {
+            path: 'https://www.yuque.com/prophet-project/help/about-gliomarker',
+            name: 'about-gliomarker',
+            meta: { title: 'About GlioMarker', target: '_blank', icon: 'project' }
+          },
+          {
+            path: 'https://www.yuque.com/prophet-project/changelog',
+            name: 'changelog',
+            meta: { title: 'ChangeLog', target: '_blank', icon: 'rocket' }
+          }
+        ]
+      },
+      {
+        path: 'https://www.yuque.com/prophet-project/topics',
+        name: 'feedback',
+        meta: { title: 'Feedback', target: '_blank', icon: 'message' }
       },
       // Exception
       {
@@ -92,6 +123,16 @@ export const asyncRouterMap = [
             meta: { title: 'menu.exception.server-error', permission: ['exception'] }
           }
         ]
+      },
+
+      // Embeded Frame
+      {
+        path: '/embeded-frame',
+        name: 'embeded-frame',
+        hidden: true,
+        component: () => import('@/views/biomarker/FullFrame'),
+        props: route => ({ src: route.query.src }),
+        meta: { title: 'Embeded Frame', icon: 'dot-chart', keepAlive: false }
       },
 
       // account

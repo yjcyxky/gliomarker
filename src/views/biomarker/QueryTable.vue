@@ -1,10 +1,10 @@
 <template>
   <a-row class="query-table">
     <a-col class="action">
-      <label>Gene Symbol or Entrez ID</label>
+      <label>Gene Symbol</label>
       <a-input
         class="search-box"
-        placeholder="Input official gene symbol or Entrez ID to query the efficiency results."
+        placeholder="Input official gene symbol to query the biomarker information."
         allowClear
         size="large"
         @change="checkGeneName"
@@ -35,7 +35,7 @@
         <a-button
           type="primary"
           size="small"
-          style="position: absolute; z-index: 10; top: 15px; left: 10px"
+          style="position: absolute; z-index: 8; top: 15px; left: 10px"
           icon="plus"
         >
         </a-button>
@@ -48,6 +48,20 @@
         :loading="loading"
         rowKey="pmid"
       >
+        <router-link
+          slot="geneSymbol"
+          slot-scope="text"
+          :to="{ name: 'embeded-frame', query: { src: generateUrl(text) } }"
+        >
+          {{ text }}
+        </router-link>
+        <router-link
+          slot="id"
+          slot-scope="text, record"
+          :to="{ name: 'biomarker-details', params: { biomarkerId: record.pmid } }"
+        >
+          {{ text }}
+        </router-link>
         <router-link slot="pmid" slot-scope="text" :to="{ name: 'knowledge-detail', params: { paperId: text } }">
           {{ text }}
         </router-link>
@@ -59,11 +73,15 @@
           <span>{{ titleCase(text.split('，')[0]) }}</span>
         </a-tooltip>
         <a-row slot="expandedRowRender" slot-scope="record" style="margin: 0">
-          <a-row v-for="item in specialColumns" :key="item.key" style="margin-bottom: 5px">
-            <a-col :span="4">
+          <a-row
+            v-for="item in specialColumns"
+            :key="item.key"
+            style="display: flex; flex-direction: row; margin-bottom: 5px"
+          >
+            <a-col style="width: 180px">
               <a-tag color="#108ee9">{{ item.title }}</a-tag>
             </a-col>
-            <a-col :span="20">{{ record[item.key] }}</a-col>
+            <a-col style="width: calc(100% - 180px)">{{ record[item.key] }}</a-col>
           </a-row>
         </a-row>
       </a-table>
@@ -89,6 +107,7 @@
 import { titleCase } from 'voca'
 import { mapActions, mapMutations, mapState } from 'vuex'
 import filter from 'lodash.filter'
+import { generateDataPortalURL, formatGeneSymbol } from './utils'
 
 export default {
   props: {},
@@ -147,6 +166,11 @@ export default {
     ...mapState('biomarker', ['items', 'loading', 'total', 'columns'])
   },
   methods: {
+    generateDataPortalURL,
+    formatGeneSymbol,
+    generateUrl(geneSymbol) {
+      return this.generateDataPortalURL('glioma_msk_2018', this.formatGeneSymbol(geneSymbol))
+    },
     ...mapActions('biomarker', ['getBiomarkerList', 'ValidateGene']),
     ...mapMutations('biomarker', ['updateSearchOptions', 'updateColumn']),
     json2csv(data) {
@@ -218,6 +242,8 @@ export default {
       //     this.notValidGene = true
       //     console.log('validateGene Error: ', error)
       //   })
+
+      this.onSearch()
     },
     onSearch() {
       this.updateSearchOptions({
