@@ -15,18 +15,37 @@ export function genPayloadByAllStudies(geneList) {
   return payload
 }
 
-export function genPayload(cancerStudy, geneList) {
+// export function genPayload(cancerStudy, geneList) {
+//   const payload = {
+//     cancer_study_list: cancerStudy,
+//     case_set_id: cancerStudy + '_cnaseq',
+//     data_priority: 0,
+//     gene_list: geneList.join('%20'),
+//     geneset_list: '',
+//     genetic_profile_ids_PROFILE_COPY_NUMBER_ALTERATION: cancerStudy + '_cna',
+//     genetic_profile_ids_PROFILE_MUTATION_EXTENDED: cancerStudy + '_mutations',
+//     tab_index: 'tab_visualize',
+//     show_samples: false,
+//     clinicallist: 'NUM_SAMPLES_PER_PATIENT'
+//   }
+
+//   return payload
+// }
+
+export function genPayload(geneList) {
   const payload = {
-    cancer_study_list: cancerStudy,
-    case_set_id: cancerStudy + '_cnaseq',
+    RPPA_SCORE_THRESHOLD: 2.0,
+    Z_SCORE_THRESHOLD: 2.0,
+    cancer_study_list: 'gbm_tcga',
+    case_set_id: 'gbm_tcga_all',
     data_priority: 0,
-    gene_list: geneList.join('%20'),
+    gene_list: geneList,
     geneset_list: '',
-    genetic_profile_ids_PROFILE_COPY_NUMBER_ALTERATION: cancerStudy + '_cna',
-    genetic_profile_ids_PROFILE_MUTATION_EXTENDED: cancerStudy + '_mutations',
-    tab_index: 'tab_visualize',
-    show_samples: false,
-    clinicallist: 'NUM_SAMPLES_PER_PATIENT'
+    genetic_profile_ids_PROFILE_COPY_NUMBER_ALTERATION: 'gbm_tcga_gistic',
+    genetic_profile_ids_PROFILE_MRNA_EXPRESSION: 'gbm_tcga_rna_seq_v2_mrna_median_Zscores',
+    genetic_profile_ids_PROFILE_MUTATION_EXTENDED: 'gbm_tcga_mutations',
+    genetic_profile_ids_PROFILE_PROTEIN_EXPRESSION: 'gbm_tcga_rppa_Zscores',
+    tab_index: 'tab_visualize'
   }
 
   return payload
@@ -34,8 +53,8 @@ export function genPayload(cancerStudy, geneList) {
 
 export function generateDataPortalURL(cancerStudy, geneList) {
   const url = 'http://data.3steps.cn/cdataportal/results/oncoprint?Action=Submit&'
-  const payload = genPayloadByAllStudies(geneList)
-  // const payload = genPayload(cancerStudy, geneList)
+  // const payload = genPayloadByAllStudies(geneList)
+  const payload = genPayload(geneList)
 
   const params = new URLSearchParams()
   for (const key in payload) {

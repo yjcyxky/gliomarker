@@ -53,19 +53,19 @@ const biomarker = {
         align: 'center'
       },
       {
-        title: 'RNA Type',
-        dataIndex: 'type_of_rna_biomarker',
-        key: 'type_of_rna_biomarker',
-        visible: true,
-        align: 'center'
-      },
-      {
         title: 'Level',
         dataIndex: 'level_of_evidence',
         key: 'level_of_evidence',
         visible: true,
         align: 'center',
         scopedSlots: { customRender: 'level' }
+      },
+      {
+        title: 'Research Region',
+        dataIndex: 'research_region',
+        key: 'research_region',
+        visible: true,
+        align: 'center'
       },
       {
         title: 'Source',
@@ -75,9 +75,16 @@ const biomarker = {
         align: 'center'
       },
       {
+        title: 'RNA Type',
+        dataIndex: 'type_of_rna_biomarker',
+        key: 'type_of_rna_biomarker',
+        visible: false,
+        align: 'center'
+      },
+      {
         title: 'Key Experiment',
-        dataIndex: 'key_experiment_in_paper',
-        key: 'key_experiment_in_paper',
+        dataIndex: 'key_experiment',
+        key: 'key_experiment',
         visible: false,
         width: 200,
         align: 'center'
@@ -105,15 +112,8 @@ const biomarker = {
       },
       {
         title: 'Glioma SubType',
-        dataIndex: 'glioma_subtype_in_paper',
-        key: 'glioma_subtype_in_paper',
-        visible: false,
-        align: 'center'
-      },
-      {
-        title: 'Research Region',
-        dataIndex: 'reserch_region',
-        key: 'reserch_region',
+        dataIndex: 'glioma_subtype',
+        key: 'glioma_subtype',
         visible: false,
         align: 'center'
       },

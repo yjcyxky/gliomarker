@@ -45,7 +45,7 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="Ontology"> Ontology </a-tab-pane>
+      <a-tab-pane key="2" tab="Ontology"> Comming soon... </a-tab-pane>
       <a-tab-pane key="3" tab="Knowledge Point">
         <knowledge-detail :paperId="biomarker.pmid" v-if="biomarker.pmid"></knowledge-detail>
         <a-empty v-else />
@@ -84,12 +84,12 @@ export default {
         'gene_symbol',
         'type_of_biomarker',
         'type_of_rna_biomarker',
-        'clinical_user',
+        'clinical_use',
         'level_of_evidence'
       ],
       clinicalLabels: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'stage'],
       experimentalLabels: ['source', 'key_experiment'],
-      diseaseLabels: ['type', 'subtype'],
+      diseaseLabels: ['disease_type', 'disease_subtype'],
       onload: function(id) {
         console.log('DataPortal: ', id)
         document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')

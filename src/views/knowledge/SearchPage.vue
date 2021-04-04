@@ -7,7 +7,7 @@
         </a-row>
         <a-input-search
           v-model="queryString"
-          placeholder="Search in Title/Journal/Status/Language Fiad"
+          placeholder="Search in Title/Journal/Status/Language Field"
           size="large"
           clearable
           enter-button

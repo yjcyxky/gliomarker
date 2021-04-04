@@ -13,6 +13,7 @@
             <a-button
               icon="download"
               shape="circle"
+              disabled
               style="margin-right: 5px;"
               type="primary"
               @click.native="downloadPaper(currentPaper.doi)"
@@ -328,10 +329,14 @@ export default {
       padding: 20px 30px;
       line-height: 150%;
       font-size: 1rem;
-      text-align: justify;
       margin: 10px 0px;
       max-height: 450px;
       overflow: scroll;
+    }
+
+    .detail,
+    .image {
+      text-align: justify;
     }
 
     .content {
@@ -391,7 +396,7 @@ export default {
     }
 
     .detail {
-      text-align: justify;
+      // text-align: justify;
 
       .title {
         font-size: @section-title-font-size;
