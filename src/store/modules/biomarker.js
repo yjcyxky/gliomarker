@@ -1,5 +1,5 @@
 import BiomarkerService from '@/api/biomarker'
-import validateGene from '@/api/manage'
+import { validateGene } from '@/api/manage'
 import orderBy from 'lodash.orderby'
 import map from 'lodash.map'
 import alasql from 'alasql'
@@ -240,12 +240,12 @@ const biomarker = {
     }
   },
   actions: {
-    ValidateGene({ commit }, gene) {
+    getGeneData({ commit }, gene) {
       console.log('ValidateGene: ', gene)
       return new Promise((resolve, reject) => {
         validateGene(gene)
           .then(response => {
-            resolve(response)
+            resolve(response.data)
           })
           .catch(error => {
             reject(error)

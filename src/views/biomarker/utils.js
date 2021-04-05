@@ -1,15 +1,19 @@
+const map = require('lodash.map')
+
 export function genPayloadByAllStudies(geneList) {
   const payload = {
     RPPA_SCORE_THRESHOLD: 2.0,
     Z_SCORE_THRESHOLD: 2.0,
-    cancer_study_list: 'lgggbm_tcga_pub,lgg_tcga_pan_can_atlas_2018,lgg_tcga,gbm_tcga_pub2013,gbm_tcga_pub,gbm_tcga_pan_can_atlas_2018,gbm_tcga,glioma_msk_2018,lgg_ucsf_2014,mbl_broad_2012,mbl_icgc,mbl_pcgp,mbl_sickkids_2016,odg_msk_2017,pcpg_tcga,past_dkfz_heidelberg_2013',
+    cancer_study_list:
+      'lgggbm_tcga_pub,lgg_tcga_pan_can_atlas_2018,lgg_tcga,gbm_tcga_pub2013,gbm_tcga_pub,gbm_tcga_pan_can_atlas_2018,gbm_tcga,glioma_msk_2018,lgg_ucsf_2014,mbl_broad_2012,mbl_icgc,mbl_pcgp,mbl_sickkids_2016,odg_msk_2017,pcpg_tcga,past_dkfz_heidelberg_2013',
     case_set_id: 'all',
     data_priority: 0,
     gene_list: geneList,
     geneset_list: '',
     tab_index: 'tab_visualize',
     show_samples: false,
-    clinicallist: 'CANCER_STUDY,NUM_SAMPLES_PER_PATIENT,PROFILED_IN_COPY_NUMBER_ALTERATION,PROFILED_IN_MUTATION_EXTENDED'
+    clinicallist:
+      'CANCER_STUDY,NUM_SAMPLES_PER_PATIENT,PROFILED_IN_COPY_NUMBER_ALTERATION,PROFILED_IN_MUTATION_EXTENDED'
   }
 
   return payload
@@ -63,10 +67,16 @@ export function generateDataPortalURL(cancerStudy, geneList) {
     }
   }
 
-  console.log('generateDataPortalURL: ', url + params.toString())
+  // console.log('generateDataPortalURL: ', url + params.toString())
   return url + params.toString()
 }
 
 export function formatGeneSymbol(geneSymbol) {
-  return geneSymbol.split(';')
+  if (geneSymbol) {
+    return map(geneSymbol.split(';'), symbol => {
+      return symbol.trim()
+    })
+  } else {
+    return []
+  }
 }

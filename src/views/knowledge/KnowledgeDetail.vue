@@ -151,7 +151,7 @@ export default {
   name: 'KnowledgeDetail',
   props: {
     paperId: {
-      type: String,
+      type: [String, Number],
       required: true
     }
   },
