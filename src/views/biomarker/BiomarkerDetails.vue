@@ -3,10 +3,12 @@
     <a-tabs default-active-key="1">
       <a-tab-pane key="1" tab="Biomarker">
         <a-collapse v-model="activeKey">
-          <a-collapse-panel v-for="key in activeKey" :key="key" :header="formatLabel(key)">
+          <a-collapse-panel v-for="key in allKeys" :key="key" :header="formatLabel(key)">
             <a-row v-for="label in labels[key]" :key="label" style="margin-bottom: 10px">
               <a-col :xs="24" :sm="12" :md="6" :lg="4">
-                <a-tag color="#108ee9"><b>{{ formatLabel(label) }}</b></a-tag>
+                <a-tag color="#108ee9">
+                  <b>{{ formatLabel(label) }}</b>
+                </a-tag>
               </a-col>
               <a-col :xs="24" :sm="12" :md="12" :lg="12">
                 <span>{{ biomarker[label] }}</span>
@@ -15,7 +17,7 @@
           </a-collapse-panel>
         </a-collapse>
       </a-tab-pane>
-      <a-tab-pane key="2" tab="Ontology">
+      <a-tab-pane key="2" tab="Annotations">
         <a-collapse accordion :activeKey="formatGeneSymbol(biomarker.gene_symbol)">
           <a-collapse-panel :key="symbol" :header="symbol" v-for="symbol in formatGeneSymbol(biomarker.gene_symbol)">
             <ontology :geneSymbol="symbol"></ontology>
@@ -44,6 +46,31 @@ import FullFrame from './FullFrame'
 import { generateDataPortalURL, formatGeneSymbol } from './utils'
 import Ontology from './Ontology.vue'
 
+const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge']
+const labels = {
+  general: [
+    'biomarker',
+    'gene_symbol',
+    'description',
+    'type_of_biomarker',
+    'type_of_rna_biomarker',
+    'clinical_use',
+    'level_of_evidence'
+  ],
+  clinical: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'stage'],
+  experimental: ['source', 'key_experiment'],
+  disease: ['disease', 'disease_type', 'disease_subtype'],
+  statistics: ['sensitivity', 'specitivity', 'area_under_the_curve', 'supplementary_statistics'],
+  knowledge: ['up_regulator', 'down_effector_or_targets']
+}
+const labelDict = {
+  type_of_rna_biomarker: 'Type of RNA Biomarker',
+  type_of_biomarker: 'Type of Biomarker',
+  level_of_evidence: 'Level of Evidence',
+  area_under_the_curve: 'ROC',
+  down_effector_or_targets: 'Down Effector or Targets'
+}
+
 export default {
   components: {
     KnowledgeDetail,
@@ -62,29 +89,9 @@ export default {
       geneSymbol: '',
       biomarker: {},
       activeKey: ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge'],
-      labels: {
-        general: [
-          'biomarker',
-          'gene_symbol',
-          'description',
-          'type_of_biomarker',
-          'type_of_rna_biomarker',
-          'clinical_use',
-          'level_of_evidence'
-        ],
-        clinical: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'stage'],
-        experimental: ['source', 'key_experiment'],
-        disease: ['disease', 'disease_type', 'disease_subtype'],
-        statistics: ['sensitivity', 'specitivity', 'area_under_the_curve', 'supplementary_statistics'],
-        knowledge: ['up_regulator', 'down_effector_or_targets']
-      },
-      labelDict: {
-        type_of_rna_biomarker: 'Type of RNA Biomarker',
-        type_of_biomarker: 'Type of Biomarker',
-        level_of_evidence: 'Level of Evidence',
-        area_under_the_curve: 'ROC',
-        down_effector_or_targets: 'Down Effector or Targets'
-      },
+      allKeys,
+      labelDict,
+      labels,
       onload: function(id) {
         console.log('DataPortal: ', id)
         document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')

@@ -73,12 +73,22 @@
             <p v-html="Knowledge"></p>
           </a-row>
         </a-col>
-        <a-col class="image" :xs="24" :sm="24" :md="24" :lg="13">
-          <img
-            :src="currentKnowledge.image_src"
-            v-if="currentKnowledge.image_src"
-          />
-          <span>Coming Soon: Key Figures & Tables...</span>
+        <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="13">
+          <a-row class="title">{{ currentPaper.title }}</a-row>
+          <a-row class="author">{{ currentPaper.authors }}</a-row>
+          <a-row class="abstract">{{ currentPaper.abstract }}</a-row>
+          <a-row class="keyword">
+            <b>Keywords: </b>
+            <span>{{ formatName(currentPaper.keywords) }}</span>
+          </a-row>
+          <a-row class="link">
+            <b>PMID: </b>
+            <span><a :href="'https://pubmed.ncbi.nlm.nih.gov/' + currentPaper.pmid" target="_blank">{{ currentPaper.pmid }}</a></span>
+          </a-row>
+          <a-row class="link">
+            <b>DOI: </b>
+            <span>{{ currentPaper.doi }}</span>
+          </a-row>
         </a-col>
       </a-row>
       <a-row class="show-window">
@@ -89,7 +99,7 @@
           </a-row>
           <a-row class="item">
             <a-row class="title">PMID</a-row>
-            <a-row>{{ currentPaper.pmid }}</a-row>
+            <a-row><a :href="'https://pubmed.ncbi.nlm.nih.gov/' + currentPaper.pmid" target="_blank">{{ currentPaper.pmid }}</a></a-row>
           </a-row>
           <a-row class="item">
             <a-row class="title">Impact Factor</a-row>
@@ -112,19 +122,12 @@
             </a-row>
           </a-row>
         </a-col>
-        <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="18">
-          <a-row class="title">{{ currentPaper.title }}</a-row>
-          <a-row class="author">{{ currentPaper.authors }}</a-row>
-          <a-row class="abstract">{{ currentPaper.abstract }}</a-row>
-          <a-row class="keyword">
-            <b>Keywords: </b>{{ formatName(currentPaper.keywords) }}
-          </a-row>
-          <a-row class="link">
-            <b>PMID: </b>{{ currentPaper.pmid }}
-          </a-row>
-          <a-row class="link">
-            <b>DOI: </b>{{ currentPaper.doi }}
-          </a-row>
+        <a-col class="image" :xs="24" :sm="24" :md="24" :lg="18">
+          <img
+            :src="currentKnowledge.image_src"
+            v-if="currentKnowledge.image_src"
+          />
+          <span>Coming Soon: Key Figures & Tables...</span>
         </a-col>
         <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="9" style="display: none;">
           <a-row class="title">Recommendation</a-row>
@@ -409,6 +412,11 @@ export default {
       .keyword,
       .link {
         margin-top: 5px;
+      }
+
+      .keyword span,
+      .link span {
+        margin-left: 5px;
       }
 
       .link {
