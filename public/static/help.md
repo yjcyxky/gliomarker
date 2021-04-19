@@ -2,10 +2,10 @@
 
 ## Data
 - Excel File in GlioMarker
-[gliomarker.xls](http://prophet.3steps.cn/static/gliomarker.xls)
+[gliomarker.xls](http://prophet.3steps.cn/static/gliomarker_v4.xls)
 
 - JSON File in GlioMarker
-[gliomarker.json](http://prophet.3steps.cn/static/gliomarker_v3.json)
+[gliomarker.json](http://prophet.3steps.cn/static/gliomarker_v4.json)
 
 <a name="kfoU4"></a>
 ## The constraction of GlioMarker

@@ -5,7 +5,7 @@ class BiomarkerService {
   getBiomarkerList() {
     return new Promise((resolve, reject) => {
       rawAxios
-        .get('/static/gliomarker_v3.json')
+        .get('/static/gliomarker_v4.json')
         .then(response => {
           resolve(response.data)
         })

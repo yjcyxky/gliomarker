@@ -16,7 +16,7 @@ const formatFilters = function(values) {
   })
 }
 
-const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker']
+const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker', 'journal']
 
 const biomarker = {
   namespaced: true,
@@ -50,6 +50,14 @@ const biomarker = {
         sorter: (a, b) => a.pmid - b.pmid,
         sortDirections: ['descend', 'ascend'],
         scopedSlots: { customRender: 'pmid' }
+      },
+      {
+        title: 'Journal',
+        dataIndex: 'journal',
+        key: 'journal',
+        width: 130,
+        visible: true,
+        align: 'center'
       },
       {
         title: 'Publication',
