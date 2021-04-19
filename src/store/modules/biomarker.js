@@ -1,8 +1,22 @@
+/* eslint-disable camelcase */
 import BiomarkerService from '@/api/biomarker'
 import { validateGene } from '@/api/manage'
 import orderBy from 'lodash.orderby'
 import map from 'lodash.map'
+import uniq from 'lodash.uniq'
 import alasql from 'alasql'
+
+const collectGroups = function(key, results) {
+  return uniq(map(results, key)).sort()
+}
+
+const formatFilters = function(values) {
+  return map(values, item => {
+    return { text: item, value: item }
+  })
+}
+
+const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source']
 
 const biomarker = {
   namespaced: true,
@@ -174,7 +188,7 @@ const biomarker = {
         align: 'center'
       },
       {
-        title: 'ROC',
+        title: 'AUC',
         dataIndex: 'area_under_the_curve',
         key: 'area_under_the_curve',
         visible: false,
@@ -224,6 +238,13 @@ const biomarker = {
     updateSearchOptions(state, payload) {
       state.searchOptions = Object.assign(state.searchOptions, payload)
     },
+    updateColumnFilter(state, { name, filters }) {
+      map(state.columns, record => {
+        if (record.key === name) {
+          record.filters = filters
+        }
+      })
+    },
     updateColumn(state, { name, value }) {
       map(state.columns, record => {
         if (record.title === name) {
@@ -269,16 +290,38 @@ const biomarker = {
       return new Promise((resolve, reject) => {
         BiomarkerService.getBiomarkerList()
           .then(response => {
-            const { limit, offset, q } = payload
-            let query = `SELECT * FROM ?`
-            if (q) {
-              query = `SELECT * FROM ? WHERE gene_symbol LIKE "${q}%"`
+            // Set Filters
+            for (const item of filterItems) {
+              commit('updateColumnFilter', { filters: formatFilters(collectGroups(item, response)), name: item })
             }
 
-            const total = alasql(query, [response]).length
+            // Query
+            const { limit, offset, q, filters } = payload
+            let query = `SELECT * FROM ? `
+            const where = []
+            const responseArray = [response]
+            if (q) {
+              where.push(`gene_symbol LIKE "${q}%"`)
+            }
+
+            if (filters && Object.keys(filters).length > 0) {
+              for (const filterItem of Object.keys(filters)) {
+                console.log('Add filter item: ', filterItem, filters[filterItem])
+                where.push(`${filterItem} IN @(?)`)
+                responseArray.push(filters[filterItem])
+              }
+            }
+
+            if (where.length > 0) {
+              query = query + 'WHERE ' + where.join(' AND ')
+            }
+
+            // console.log('Query: ', payload, query)
+
+            const total = alasql(query, responseArray).length
 
             alasql
-              .promise(query + ` ORDER BY gene_symbol LIMIT ${limit} OFFSET ${offset}`, [response])
+              .promise(query + ` ORDER BY gene_symbol LIMIT ${limit} OFFSET ${offset}`, responseArray)
               .then(res => {
                 commit('setBiomarkerList', res)
                 commit('setTotalItems', total)

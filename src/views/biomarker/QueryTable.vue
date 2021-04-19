@@ -32,12 +32,7 @@
             </a-checkbox>
           </a-col>
         </a-row>
-        <a-button
-          type="primary"
-          size="small"
-          style="position: absolute; z-index: 8; top: 15px; left: 10px"
-          icon="plus"
-        >
+        <a-button type="primary" size="small" style="position: absolute; z-index: 8; top: 15px; left: 10px" icon="plus">
         </a-button>
       </a-popover>
       <a-table
@@ -46,6 +41,7 @@
         :data-source="biomarkers"
         :pagination="false"
         :loading="loading"
+        @change="handleTableChange"
         rowKey="pmid"
       >
         <router-link
@@ -68,9 +64,9 @@
         <span slot="number" slot-scope="text">{{ text.slice(0, 3) }}</span>
         <a-tooltip slot="level" slot-scope="text">
           <template slot="title">
-            <span>{{ text.split('，')[1] }}</span>
+            <span>{{ text.split(', ')[1].replaceAll(/"/ig, "") }}</span>
           </template>
-          <span>{{ titleCase(text.split('，')[0]) }}</span>
+          <span>{{ titleCase(text.split(', ')[0]) }}</span>
         </a-tooltip>
         <a-row slot="expandedRowRender" slot-scope="record" style="margin: 0">
           <a-row
@@ -220,28 +216,7 @@ export default {
       })
     },
     checkGeneName(e) {
-      // this.notValidGene = true
-      // this.checking = true
       this.queryString = e.target.value
-
-      // Check
-      // this.validateGene(this.queryString)
-      //   .then(response => {
-      //     if (response.data.response.numFound === 0) {
-      //       this.notValidGene = true
-      //       // this.$message.warning(`Not valid gene symbol - ${this.queryString}`)
-      //     } else {
-      //       this.notValidGene = false
-      //     }
-
-      //     this.checking = false
-      //     console.log('validateGene: ', response, this.notValidGene)
-      //   })
-      //   .catch(error => {
-      //     this.checking = false
-      //     this.notValidGene = true
-      //     console.log('validateGene Error: ', error)
-      //   })
 
       this.onSearch()
     },
@@ -253,19 +228,23 @@ export default {
       })
       this.getBiomarkerList({})
     },
-    handleSizeChange: function() {
+    handleSizeChange() {
       this.updateSearchOptions({
         limit: this.limit,
         offset: this.offset
       })
       this.getBiomarkerList({})
     },
-    handleCurrentChange: function() {
+    handleCurrentChange() {
       this.updateSearchOptions({
         limit: this.limit,
         offset: this.offset
       })
       this.getBiomarkerList({})
+    },
+    handleTableChange(pagination, filters, sorter) {
+      console.log('handleTableChange: ', pagination, filters, sorter)
+      this.getBiomarkerList({ filters })
     }
   },
   created() {

@@ -26,7 +26,7 @@ export const asyncRouterMap = [
         name: 'biomarker',
         hidden: false,
         component: () => import('@/views/biomarker/QueryTable'),
-        meta: { title: 'Biomarker', icon: 'filter', permission: ['dashboard'], keepAlive: false }
+        meta: { title: 'Biomarker', icon: 'filter', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker-details/:biomarkerId',
@@ -48,7 +48,7 @@ export const asyncRouterMap = [
         name: 'knowledge',
         hidden: false,
         component: () => import('@/views/knowledge/SearchPage'),
-        meta: { title: 'Knowledge', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'Curation', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/knowledge/:paperId',
