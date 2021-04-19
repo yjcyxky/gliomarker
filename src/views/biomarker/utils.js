@@ -56,9 +56,10 @@ export function genPayload(geneList) {
 }
 
 export function generateDataPortalURL(cancerStudy, geneList) {
-  const url = 'http://data.3steps.cn/cdataportal/results/oncoprint?Action=Submit&'
+  // const url = 'http://data.3steps.cn/cdataportal/results/oncoprint?Action=Submit&'
+  const url = 'http://47.117.69.107/cdataportal/results/oncoprint?Action=Submit&'
   // const payload = genPayloadByAllStudies(geneList)
-  const payload = genPayload(geneList)
+  const payload = genPayload(geneList.join(' '))
 
   const params = new URLSearchParams()
   for (const key in payload) {

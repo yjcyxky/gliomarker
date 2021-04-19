@@ -30,7 +30,6 @@ export default {
       required: false,
       default: function(id) {
         console.log('DataPortal: ', id)
-        document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')
       }
     }
   },
