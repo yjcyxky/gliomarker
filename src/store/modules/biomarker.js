@@ -16,7 +16,7 @@ const formatFilters = function(values) {
   })
 }
 
-const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker', 'journal']
+const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker', 'journal', 'publication_time']
 
 const biomarker = {
   namespaced: true,
@@ -44,7 +44,6 @@ const biomarker = {
         title: 'PMID',
         dataIndex: 'pmid',
         key: 'pmid',
-        width: 120,
         align: 'center',
         visible: true,
         sorter: (a, b) => a.pmid - b.pmid,
@@ -55,14 +54,6 @@ const biomarker = {
         title: 'Journal',
         dataIndex: 'journal',
         key: 'journal',
-        width: 130,
-        visible: true,
-        align: 'center'
-      },
-      {
-        title: 'Impact Factor',
-        dataIndex: 'if_2020',
-        key: 'if_2020',
         width: 130,
         visible: true,
         align: 'center'
@@ -112,11 +103,17 @@ const biomarker = {
         align: 'center'
       },
       {
+        title: 'Impact Factor',
+        dataIndex: 'if_2020',
+        key: 'if_2020',
+        visible: false,
+        align: 'center'
+      },
+      {
         title: 'Key Experiment',
         dataIndex: 'key_experiment',
         key: 'key_experiment',
         visible: false,
-        width: 200,
         align: 'center'
       },
       {
@@ -338,8 +335,9 @@ const biomarker = {
 
             const total = alasql(query, responseArray).length
 
+            // ORDER BY if_2020 DESC, gene_symbol ASC
             alasql
-              .promise(query + ` ORDER BY gene_symbol LIMIT ${limit} OFFSET ${offset}`, responseArray)
+              .promise(query + ` ORDER BY gene_symbol ASC LIMIT ${limit} OFFSET ${offset}`, responseArray)
               .then(res => {
                 commit('setBiomarkerList', res)
                 commit('setTotalItems', total)

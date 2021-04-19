@@ -21,44 +21,57 @@
         </a-collapse>
       </a-tab-pane>
       <a-tab-pane key="2" tab="Oncology">
-        <a-collapse accordion :activeKey="formatGeneSymbol(biomarker.gene_symbol)">
+        <a-collapse
+          accordion
+          v-if="biomarker.gene_symbol !== 'NA'"
+          :activeKey="formatGeneSymbol(biomarker.gene_symbol)"
+        >
           <a-collapse-panel :key="symbol" :header="symbol" v-for="symbol in formatGeneSymbol(biomarker.gene_symbol)">
             <ontology :geneSymbol="symbol"></ontology>
           </a-collapse-panel>
         </a-collapse>
+        <a-empty v-else />
       </a-tab-pane>
       <a-tab-pane key="3" tab="Knowledge">
         <!-- <knowledge-detail :paperId="biomarker.pmid" v-if="biomarker.pmid"></knowledge-detail> -->
         <!-- <a-empty v-else/> -->
-        <a-row class="header">
-          <a-select size="small" :value="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
-            <a-select-option :value="gene" :key="gene" v-for="gene in formatGeneSymbol(biomarker.gene_symbol)">
-              {{ gene }}
-            </a-select-option>
-          </a-select>
-          <span style="margin-left: 5px">Precision Medicine KnowledgeBase(PreMedKB)</span>
+        <a-row v-if="tagName === '3' && biomarker.gene_symbol !== 'NA'">
+          <a-row class="header">
+            <a-select size="small" :value="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
+              <a-select-option :value="gene" :key="gene" v-for="gene in formatGeneSymbol(biomarker.gene_symbol)">
+                {{ gene }}
+              </a-select-option>
+            </a-select>
+            <span style="margin-left: 5px">Precision Medicine KnowledgeBase(PreMedKB)</span>
+          </a-row>
+          <full-frame :src="buildGeneQueryUrl(currentGeneSymbol)"></full-frame>
         </a-row>
-        <full-frame v-if="tagName === '3'" :src="buildGeneQueryUrl(currentGeneSymbol)"></full-frame>
+        <a-empty v-else />
       </a-tab-pane>
       <a-tab-pane key="4" tab="Genomic Data">
         <full-frame
-          v-if="tagName === '4'"
+          v-if="tagName === '4' && biomarker.gene_symbol !== 'NA'"
           :src="generateDataPortalURL('glioma_msk_2018', formatGeneSymbol(biomarker.gene_symbol))"
           :onloadfn="onload"
         ></full-frame>
+        <a-empty v-else />
       </a-tab-pane>
       <a-tab-pane key="5" tab="Expression Data">
-        <a-row style="position: relative; top: -15px;">
+        <a-row style="position: relative; top: -15px" v-if="tagName === '5' && biomarker.gene_symbol !== 'NA'">
           <a-row class="gepia-header">
             <a-select size="small" :value="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
               <a-select-option :value="gene" :key="gene" v-for="gene in formatGeneSymbol(biomarker.gene_symbol)">
                 {{ gene }}
               </a-select-option>
             </a-select>
-            <span style="margin-left: 5px">Gene Expression Profiling Interactive Analysis(<a href="http://gepia.cancer-pku.cn/index.html" target="_blank">GEPIA</a>)</span>
+            <span style="margin-left: 5px">
+              Gene Expression Profiling Interactive Analysis(
+              <a href="http://gepia.cancer-pku.cn/index.html" target="_blank">GEPIA</a>)
+            </span>
           </a-row>
-          <full-frame v-if="tagName === '5'" :src="buildGepiaURL(currentGeneSymbol)"></full-frame>
+          <full-frame :src="buildGepiaURL(currentGeneSymbol)"></full-frame>
         </a-row>
+        <a-empty v-else />
       </a-tab-pane>
     </a-tabs>
   </div>
