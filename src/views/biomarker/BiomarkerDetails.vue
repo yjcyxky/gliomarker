@@ -1,7 +1,7 @@
 <template>
   <div class="biomarker-details">
-    <a-tabs default-active-key="1">
-      <a-tab-pane key="1" tab="Biomarker">
+    <a-tabs :defaultActiveKey="tagName" @change="changeTab">
+      <a-tab-pane key="1" tab="Curation">
         <a-collapse v-model="activeKey">
           <a-collapse-panel v-for="key in allKeys" :key="key" :header="formatLabel(key)">
             <a-row v-for="label in labels[key]" :key="label" style="margin-bottom: 10px">
@@ -14,7 +14,7 @@
                 <span>{{ biomarker[label] }}</span>
               </a-col>
               <a-col :xs="24" :sm="12" :md="12" :lg="16" v-if="label === 'knowledge_points'">
-                <p style="text-align: justify;" v-html="formatKnowledgePoints(biomarker[label])"></p>
+                <p style="text-align: justify" v-html="formatKnowledgePoints(biomarker[label])"></p>
               </a-col>
             </a-row>
           </a-collapse-panel>
@@ -31,24 +31,34 @@
         <!-- <knowledge-detail :paperId="biomarker.pmid" v-if="biomarker.pmid"></knowledge-detail> -->
         <!-- <a-empty v-else/> -->
         <a-row class="header">
-          <a-select size="small" :defaultValue="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
+          <a-select size="small" :value="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
             <a-select-option :value="gene" :key="gene" v-for="gene in formatGeneSymbol(biomarker.gene_symbol)">
               {{ gene }}
             </a-select-option>
           </a-select>
-          <span style="margin-left: 5px;">Precision Medicine KnowledgeBase(PreMedKB)</span>
+          <span style="margin-left: 5px">Precision Medicine KnowledgeBase(PreMedKB)</span>
         </a-row>
-        <full-frame
-          v-if="currentGeneSymbol.length > 0"
-          :key="currentGeneSymbol"
-          :src="buildGeneQueryUrl(currentGeneSymbol)"
-        ></full-frame>
+        <full-frame v-if="tagName === '3'" :src="buildGeneQueryUrl(currentGeneSymbol)"></full-frame>
       </a-tab-pane>
-      <a-tab-pane key="4" tab="Data">
+      <a-tab-pane key="4" tab="Genomic Data">
         <full-frame
+          v-if="tagName === '4'"
           :src="generateDataPortalURL('glioma_msk_2018', formatGeneSymbol(biomarker.gene_symbol))"
           :onloadfn="onload"
         ></full-frame>
+      </a-tab-pane>
+      <a-tab-pane key="5" tab="Expression Data">
+        <a-row style="position: relative; top: -15px;">
+          <a-row class="gepia-header">
+            <a-select size="small" :value="currentGeneSymbol" style="width: 120px" @change="selectGeneSymbol">
+              <a-select-option :value="gene" :key="gene" v-for="gene in formatGeneSymbol(biomarker.gene_symbol)">
+                {{ gene }}
+              </a-select-option>
+            </a-select>
+            <span style="margin-left: 5px">Gene Expression Profiling Interactive Analysis(<a href="http://gepia.cancer-pku.cn/index.html" target="_blank">GEPIA</a>)</span>
+          </a-row>
+          <full-frame v-if="tagName === '5'" :src="buildGepiaURL(currentGeneSymbol)"></full-frame>
+        </a-row>
       </a-tab-pane>
     </a-tabs>
   </div>
@@ -97,6 +107,11 @@ export default {
     biomarkerId: {
       type: String,
       required: true
+    },
+    tagName: {
+      type: String,
+      required: false,
+      default: '1'
     }
   },
   data() {
@@ -126,6 +141,9 @@ export default {
       const queryStr = '&queryType=3&num=1&step=1&term=%27' + hugoGeneSymbol + '%27%5Bgene%5D'
       return baseUrl + label + queryStr
     },
+    buildGepiaURL(geneSymbol) {
+      return `http://gepia.cancer-pku.cn/detail.php?gene=${geneSymbol}`
+    },
     formatLabel(label) {
       const formatedLabel = this.labelDict[label]
       if (formatedLabel) {
@@ -146,6 +164,14 @@ export default {
     },
     selectGeneSymbol(geneSymbol) {
       this.currentGeneSymbol = geneSymbol
+    },
+    changeTab(activeKey) {
+      this.$router.push({
+        name: 'biomarker-details',
+        query: {
+          tagName: activeKey
+        }
+      })
     }
   },
   created() {
@@ -189,6 +215,17 @@ export default {
     flex-direction: row;
     align-items: center;
     margin-bottom: 5px;
+  }
+
+  .gepia-header {
+    height: 60px;
+    position: absolute;
+    top: 0px;
+    z-index: 1;
+    background-color: #fff;
+    width: 100%;
+    align-items: center;
+    display: flex;
   }
 }
 </style>

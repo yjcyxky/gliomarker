@@ -1,7 +1,7 @@
 <template>
   <a-row>
     <a-spin :spinning="spinning" v-show="spinning" class="spinning" size="large" />
-    <iframe :id="id" v-show="!spinning" class="full-frame" :src="src" :scrolling="scrolling" frameborder="0"></iframe>
+    <iframe :id="id" :name="id" v-show="!spinning" class="full-frame" :src="src" :scrolling="scrolling" frameborder="0"></iframe>
   </a-row>
 </template>
 

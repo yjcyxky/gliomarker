@@ -11,7 +11,7 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: 'menu.home' },
+    meta: { title: 'menu.home', keepAlive: true },
     redirect: '/home',
     children: [
       {
@@ -19,7 +19,7 @@ export const asyncRouterMap = [
         name: 'home',
         hidden: false,
         component: () => import('@/views/dashboard/Home'),
-        meta: { title: 'Home', icon: 'home', permission: ['dashboard'], keepAlive: false }
+        meta: { title: 'Home', icon: 'home', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker',
@@ -33,8 +33,8 @@ export const asyncRouterMap = [
         name: 'biomarker-details',
         hidden: true,
         component: () => import('@/views/biomarker/BiomarkerDetails'),
-        props: (route) => ({ biomarkerId: route.params.biomarkerId }),
-        meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: false }
+        props: (route) => ({ biomarkerId: route.params.biomarkerId, tagName: route.query.tagName }),
+        meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/download',

@@ -16,7 +16,7 @@ const formatFilters = function(values) {
   })
 }
 
-const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source']
+const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker']
 
 const biomarker = {
   namespaced: true,
@@ -75,7 +75,7 @@ const biomarker = {
         scopedSlots: { customRender: 'level' }
       },
       {
-        title: 'Research Region',
+        title: 'Region',
         dataIndex: 'research_region',
         key: 'research_region',
         visible: true,
@@ -92,7 +92,7 @@ const biomarker = {
         title: 'RNA Type',
         dataIndex: 'type_of_rna_biomarker',
         key: 'type_of_rna_biomarker',
-        visible: false,
+        visible: true,
         align: 'center'
       },
       {
@@ -306,9 +306,11 @@ const biomarker = {
 
             if (filters && Object.keys(filters).length > 0) {
               for (const filterItem of Object.keys(filters)) {
-                console.log('Add filter item: ', filterItem, filters[filterItem])
-                where.push(`${filterItem} IN @(?)`)
-                responseArray.push(filters[filterItem])
+                if (filters[filterItem] && filters[filterItem].length > 0) {
+                  console.log('Add filter item: ', filterItem, filters[filterItem])
+                  where.push(`${filterItem} IN @(?)`)
+                  responseArray.push(filters[filterItem])
+                }
               }
             }
 
