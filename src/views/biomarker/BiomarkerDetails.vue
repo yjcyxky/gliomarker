@@ -85,8 +85,8 @@ const labels = {
   ],
   clinical: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'stage'],
   experimental: ['source', 'key_experiment'],
-  disease: ['disease', 'disease_type', 'disease_subtype'],
-  statistics: ['sensitivity', 'specitivity', 'area_under_the_curve', 'supplementary_statistics'],
+  disease: ['disease_classification', 'disease_type', 'disease_subtype'],
+  statistics: ['sensitivity', 'specificity', 'area_under_the_curve', 'supplementary_statistics'],
   knowledge: ['up_regulator', 'down_effector_or_targets', 'knowledge_points']
 }
 const labelDict = {

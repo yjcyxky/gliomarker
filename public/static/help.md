@@ -5,7 +5,7 @@
 [gliomarker.xls](http://prophet.3steps.cn/static/gliomarker.xls)
 
 - JSON File in GlioMarker
-[gliomarker.json](http://prophet.3steps.cn/static/gliomarker.json)
+[gliomarker.json](http://prophet.3steps.cn/static/gliomarker_v3.json)
 
 <a name="kfoU4"></a>
 ## The constraction of GlioMarker
@@ -98,7 +98,7 @@ To guarantee the high quality of data collection, all the data for GlioMarker ar
 | disease_subtype_in_paper | disease | Varchar |   | Subtype of the disease | Glioma |
 | disease_type | disease | Varchar |   | Type of disease | Glioma |
 | sensitivity | statistics | Integer |   | ROC sensitivity index | 0.9905 |
-| specitivity | statistics | Integer |   | ROC specitivity index | 0.8286 |
+| specificity | statistics | Integer |   | ROC specificity index | 0.8286 |
 | area_under_the_curve | statistics | Integer |   | AUC value of the ROC | 0.9063 |
 | supplementary_statistics | statistics | Varchar |   | Other statistical results for the biomarker | The ROC curves analysis showed that at the optimal cut-off, plasma miR-454-3p had a 99.05 % sensitivity and a 82.86 % specificity and the area under the ROC curve (AUC) was 0.9063 [95 % confidence interval (CI): 0.8487–0.9639)] |
 

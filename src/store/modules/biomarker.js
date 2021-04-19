@@ -181,9 +181,9 @@ const biomarker = {
         align: 'center'
       },
       {
-        title: 'Specitivity',
-        dataIndex: 'specitivity',
-        key: 'specitivity',
+        title: 'Specificity',
+        dataIndex: 'specificity',
+        key: 'specificity',
         visible: false,
         align: 'center'
       },

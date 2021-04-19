@@ -47,7 +47,7 @@ const labels = {
   nucleotide: ['refseq_accession', 'rna_central_id'],
   clinical: ['omim_id'],
   orthologs: ['rgd_id', 'mgd_id'],
-  specialist: ['mirbase']
+  specialist: ['mirbase', 'lncrnadb', 'lncipedia']
 }
 const labelDict = {
   gene: 'Gene Resources',
@@ -73,7 +73,9 @@ const labelDict = {
   omim_id: 'OMIM',
   rgd_id: 'Rattus Norvegicus',
   mgd_id: 'Mus Musculus',
-  mirbase: 'miRBase'
+  mirbase: 'miRBase',
+  lncrnadb: 'lncRNAdb',
+  lncipedia: 'LNCipedia'
 }
 const linkPrefix = {
   ensembl_gene_id: 'https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=',
@@ -85,7 +87,9 @@ const linkPrefix = {
   rgd_id: 'http://rgd.mcw.edu/rgdweb/report/gene/main.html?id=',
   mirbase: 'http://www.mirbase.org/cgi-bin/mirna_entry.pl?acc=',
   omim_id: 'http://www.omim.org/entry/',
-  hgnc_id: 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/'
+  hgnc_id: 'https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/',
+  lncrnadb: 'http://lncrnadb.com/',
+  lncipedia: 'http://lncipedia.org/db/gene/'
 }
 
 export default {
