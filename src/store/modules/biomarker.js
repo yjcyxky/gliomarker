@@ -60,6 +60,14 @@ const biomarker = {
         align: 'center'
       },
       {
+        title: 'Impact Factor',
+        dataIndex: 'if_2020',
+        key: 'if_2020',
+        width: 130,
+        visible: true,
+        align: 'center'
+      },
+      {
         title: 'Publication',
         dataIndex: 'publication_time',
         key: 'publication_time',
