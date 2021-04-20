@@ -19,21 +19,21 @@ export const asyncRouterMap = [
         name: 'home',
         hidden: false,
         component: () => import('@/views/dashboard/Home'),
-        meta: { title: 'Home', icon: 'home', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'HOME', icon: 'home', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker',
         name: 'biomarker',
         hidden: false,
         component: () => import('@/views/biomarker/QueryTable'),
-        meta: { title: 'Biomarker', icon: 'filter', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'BIOMARKER', icon: 'filter', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker-details/:biomarkerId',
         name: 'biomarker-details',
         hidden: true,
         component: () => import('@/views/biomarker/BiomarkerDetails'),
-        props: (route) => ({ biomarkerId: route.params.biomarkerId, tagName: route.query.tagName }),
+        props: route => ({ biomarkerId: route.params.biomarkerId, tagName: route.query.tagName }),
         meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: true }
       },
       {
@@ -41,21 +41,21 @@ export const asyncRouterMap = [
         name: 'download',
         hidden: false,
         component: () => import('@/views/about/Help'),
-        meta: { title: 'Download', icon: 'download', permission: ['dashboard'], keepAlive: false }
+        meta: { title: 'DOWNLOAD', icon: 'download', permission: ['dashboard'], keepAlive: false }
       },
       {
         path: '/knowledge',
         name: 'knowledge',
         hidden: false,
         component: () => import('@/views/knowledge/SearchPage'),
-        meta: { title: 'Curation', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'CURATION', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/knowledge/:paperId',
         name: 'knowledge-detail',
         hidden: true,
         component: () => import('@/views/knowledge/KnowledgeDetail'),
-        props: (route) => ({ paperId: route.params.paperId }),
+        props: route => ({ paperId: route.params.paperId }),
         meta: { title: 'Knowledge Details', icon: 'snippets', permission: ['dashboard'], keepAlive: false }
       },
       {
@@ -71,7 +71,7 @@ export const asyncRouterMap = [
         name: 'about',
         hidden: false,
         component: RouteView,
-        meta: { title: 'About', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
+        meta: { title: 'ABOUT', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
         children: [
           {
             path: 'https://www.yuque.com/prophet-project/help/about-us',
@@ -93,7 +93,7 @@ export const asyncRouterMap = [
       {
         path: 'https://www.yuque.com/prophet-project/topics',
         name: 'feedback',
-        meta: { title: 'Feedback', target: '_blank', icon: 'message' }
+        meta: { title: 'FEEDBACK', target: '_blank', icon: 'message' }
       },
       // Exception
       {
@@ -131,7 +131,12 @@ export const asyncRouterMap = [
         name: 'embeded-frame',
         hidden: true,
         component: () => import('@/views/biomarker/FullFrame'),
-        props: route => ({ src: route.query.src }),
+        props: route => ({
+          src: route.query.src,
+          onloadfn: id => {
+            document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.69.107')
+          }
+        }),
         meta: { title: 'Embeded Frame', icon: 'dot-chart', keepAlive: false }
       },
 

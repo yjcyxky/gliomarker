@@ -1,7 +1,7 @@
 <template lang="html">
   <a-spin :spinning="loading">
     <a-row class="knowledge-detail-page">
-      <a-row class="title-container" :gutter="10">
+      <a-row class="title-container" :gutter="10" v-if="!onlyPaper">
         <a-col class="title" :xs="24" :sm="24" :md="24" :lg="20">
           {{ currentPaper.title }}
         </a-col>
@@ -40,13 +40,13 @@
           </a-tooltip>
         </a-col>
       </a-row>
-      <a-row class="details">
+      <a-row class="details" v-if="!onlyPaper">
         <span>Author: {{ formatName(currentKnowledge.owner) }}</span>
         <span>Editor: {{ formatName(currentKnowledge.editor) }}</span>
         <span>{{ currentKnowledge.date }}</span>
       </a-row>
       <a-row class="show-window">
-        <a-col class="content" :xs="24" :sm="24" :md="24" :lg="10">
+        <a-col class="content" :xs="24" :sm="24" :md="24" :lg="10" v-if="!onlyPaper">
           <a-row class="header" :gutter="10">
             <a-col :span="12">
               <a-select
@@ -73,13 +73,21 @@
             <p v-html="Knowledge"></p>
           </a-row>
         </a-col>
-        <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="13">
+        <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="onlyPaper ? 24 : 13">
           <a-row class="title">{{ currentPaper.title }}</a-row>
           <a-row class="author">{{ currentPaper.authors }}</a-row>
           <a-row class="abstract">{{ currentPaper.abstract }}</a-row>
           <a-row class="keyword">
+            <b>Journal: </b>
+            <span>{{ currentPaper.journal }}</span>
+          </a-row>
+          <a-row class="keyword">
             <b>Keywords: </b>
             <span>{{ formatName(currentPaper.keywords) }}</span>
+          </a-row>
+          <a-row class="keyword">
+            <b>Published Date: </b>
+            <span>{{ currentPaper.pubdate }}</span>
           </a-row>
           <a-row class="link">
             <b>PMID: </b>
@@ -91,7 +99,7 @@
           </a-row>
         </a-col>
       </a-row>
-      <a-row class="show-window">
+      <a-row class="show-window" v-if="!onlyPaper">
         <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="5">
           <a-row class="item">
             <a-row class="title">Journal</a-row>
@@ -156,6 +164,11 @@ export default {
     paperId: {
       type: [String, Number],
       required: true
+    },
+    onlyPaper: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {

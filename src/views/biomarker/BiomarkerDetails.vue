@@ -2,23 +2,31 @@
   <div class="biomarker-details">
     <a-tabs :defaultActiveKey="tagName" @change="changeTab">
       <a-tab-pane key="1" tab="Curation">
-        <a-collapse v-model="activeKey">
-          <a-collapse-panel v-for="key in allKeys" :key="key" :header="formatLabel(key)">
-            <a-row v-for="label in labels[key]" :key="label" style="margin-bottom: 10px">
-              <a-col :xs="24" :sm="12" :md="6" :lg="4">
-                <a-tag color="#108ee9">
-                  <b>{{ formatLabel(label) }}</b>
-                </a-tag>
-              </a-col>
-              <a-col :xs="24" :sm="12" :md="12" :lg="16" v-if="label !== 'knowledge_points'">
-                <span>{{ biomarker[label] }}</span>
-              </a-col>
-              <a-col :xs="24" :sm="12" :md="12" :lg="16" v-if="label === 'knowledge_points'">
-                <p style="text-align: justify" v-html="formatKnowledgePoints(biomarker[label])"></p>
-              </a-col>
-            </a-row>
-          </a-collapse-panel>
-        </a-collapse>
+        <a-row class="curation-container" :gutter="16">
+          <a-col :lg="paperActive ? 14 : 24" :xs="24" :sm="24" :md="24" style="margin-bottom: 10px;">
+            <a-collapse v-model="activeKey">
+              <a-collapse-panel v-for="key in allKeys" :key="key" :header="formatLabel(key)">
+                <a-icon slot="extra" :type="paperActive ? 'fullscreen' : 'fullscreen-exit'" @click.stop="switchPaperContainer" />
+                <a-row v-for="label in labels[key]" :key="label" style="margin-bottom: 10px">
+                  <a-col :xs="24" :sm="12" :md="6" :lg="6">
+                    <a-tag color="#108ee9">
+                      <b>{{ formatLabel(label) }}</b>
+                    </a-tag>
+                  </a-col>
+                  <a-col :xs="24" :sm="12" :md="18" :lg="18" v-if="label !== 'knowledge_points'">
+                    <span>{{ biomarker[label] }}</span>
+                  </a-col>
+                  <a-col :xs="24" :sm="12" :md="18" :lg="18" v-if="label === 'knowledge_points'">
+                    <p style="text-align: justify" v-html="formatKnowledgePoints(biomarker[label])"></p>
+                  </a-col>
+                </a-row>
+              </a-collapse-panel>
+            </a-collapse>
+          </a-col>
+          <a-col :lg="paperActive ? 10 : 0" :xs="24" :sm="24" :md="24">
+            <knowledge-detail :onlyPaper="true" v-if="biomarker.pmid" :paperId="biomarker.pmid"></knowledge-detail>
+          </a-col>
+        </a-row>
       </a-tab-pane>
       <a-tab-pane key="2" tab="Oncology">
         <a-collapse
@@ -83,7 +91,7 @@ import KnowledgeDetail from '../knowledge/KnowledgeDetail'
 import v from 'voca'
 import FullFrame from './FullFrame'
 import { generateDataPortalURL, formatGeneSymbol } from './utils'
-import Ontology from './Ontology.vue'
+import Ontology from './Ontology'
 
 const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge']
 const labels = {
@@ -141,7 +149,8 @@ export default {
         // document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')
         document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.69.107')
       },
-      currentGeneSymbol: ''
+      currentGeneSymbol: '',
+      paperActive: true
     }
   },
   methods: {
@@ -153,6 +162,9 @@ export default {
       const label = '?view=widget'
       const queryStr = '&queryType=3&num=1&step=1&term=%27' + hugoGeneSymbol + '%27%5Bgene%5D'
       return baseUrl + label + queryStr
+    },
+    switchPaperContainer() {
+      this.paperActive = !this.paperActive
     },
     buildGepiaURL(geneSymbol) {
       return `http://gepia.cancer-pku.cn/detail.php?gene=${geneSymbol}`
@@ -239,6 +251,28 @@ export default {
     width: 100%;
     align-items: center;
     display: flex;
+  }
+}
+</style>
+
+<style lang="less">
+.biomarker-details {
+  .curation-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .knowledge-detail-page {
+      padding: 0px !important;
+      border: unset !important;
+
+      .detail {
+        border: 1px solid #d6d6d6 !important;
+        margin: 0px !important;
+        padding: 10px 20px !important;
+        max-height: unset !important;
+      }
+    }
   }
 }
 </style>
