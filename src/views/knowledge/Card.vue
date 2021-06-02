@@ -182,7 +182,8 @@ export default {
     overflow: hidden;
     display: -webkit-box;
     line-height: 150%;
-    min-height: 90px;
+    min-height: 130px;
+    max-height: 130px;
     text-align: justify;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 6;

@@ -147,7 +147,7 @@ export default {
       onload: function(id) {
         console.log('DataPortal: ', id)
         // document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')
-        document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.69.107')
+        document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.3.66')
       },
       currentGeneSymbol: '',
       paperActive: true
@@ -159,7 +159,7 @@ export default {
     ...mapActions('biomarker', ['getBiomarker']),
     buildGeneQueryUrl(hugoGeneSymbol) {
       const baseUrl = 'http://www.fudan-pgx.org/premedkb/index.html#/search/result'
-      const label = '?view=widget'
+      const label = '?view=widget&hideHeader=true'
       const queryStr = '&queryType=3&num=1&step=1&term=%27' + hugoGeneSymbol + '%27%5Bgene%5D'
       return baseUrl + label + queryStr
     },

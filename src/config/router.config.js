@@ -134,7 +134,7 @@ export const asyncRouterMap = [
         props: route => ({
           src: route.query.src,
           onloadfn: id => {
-            document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.69.107')
+            document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.3.66')
           }
         }),
         meta: { title: 'Embeded Frame', icon: 'dot-chart', keepAlive: false }
