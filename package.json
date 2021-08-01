@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "publish-code": "vue-cli-service build && ossutilmac64 cp -r -u ./dist/ oss://prophet-dashboard/ -c ~/.ossutilconfig-tgmc",
+    "publish-code-hongkong": "vue-cli-service build && ossutilmac64 cp -r -u ./dist/ oss://prophetdb/ -c ~/.ossutilconfig-tgmc-hongkong",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",

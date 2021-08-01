@@ -2,17 +2,17 @@
 
 ## Data
 - Excel File in GlioMarker
-[gliomarker.xls](http://prophet.3steps.cn/static/gliomarker_v5.xls)
+[gliomarker.xls](http://prophet.3steps.cn/static/gliomarker.xls)
 
 - JSON File in GlioMarker
-[gliomarker.json](http://prophet.3steps.cn/static/gliomarker_v5.json)
+[gliomarker.json](http://prophet.3steps.cn/static/gliomarker.json)
 
 <a name="kfoU4"></a>
 ## The constraction of GlioMarker
 The flowchart of GlioMarker construction was shown in Figure1, including literature-based mining,  biological function investigations，and high-throughput datasets verification. <br />![image.png](https://cdn.nlark.com/yuque/0/2021/png/358193/1616245035525-329a1b2c-d076-47b3-b14d-74216192ca59.png#align=left&display=inline&height=570&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1140&originWidth=802&size=160218&status=done&style=none&width=401)<br />Figure 1: The flowchart of GlioMarker construction
 <a name="BdukC"></a>
 ## Data Selection Criteria
-To guarantee the high quality of data collection, all the data for GlioMarker are collected from the public database PubMed by manually text mining. The detailed literature searching was performed in PubMed (http://www.ncbi.nlm.nih.gov/ pubmed) using the keywords [‘gliomas’, ‘glial cell tumors’, ‘glioblastoma’, ‘astrocytoma’, ‘oligodendrogliomas’, or ‘ependymoma’] and [‘biomarker’ or  ‘indicator’, ‘marker’ or ‘predictor’] and [‘diagnostic’ or ‘diagnosis’]. Figure 2 shows the procedure of data collection.<br />![image.png](https://cdn.nlark.com/yuque/0/2021/png/358193/1616245341852-c5a81b6b-48aa-44bc-a619-1568c19adf30.png#align=left&display=inline&height=548&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1096&originWidth=760&size=144592&status=done&style=none&width=380)<br />Figure2: The pipeline of literature curation 
+To guarantee the high quality of data collection, all the data for GlioMarker are collected from the public database PubMed by manually text mining. The detailed literature searching was performed in PubMed (http://www.ncbi.nlm.nih.gov/ pubmed) using the keywords ["gliomas", "glial cell tumors", "glioblastoma", "astrocytoma", "oligodendrogliomas", or "ependymoma"] and ["biomarker" or  "indicator", "marker" or "predictor"] and ["diagnostic" or "diagnosis"]. Figure 2 shows the procedure of data collection.<br />![image.png](https://cdn.nlark.com/yuque/0/2021/png/358193/1616245341852-c5a81b6b-48aa-44bc-a619-1568c19adf30.png#align=left&display=inline&height=548&margin=%5Bobject%20Object%5D&name=image.png&originHeight=1096&originWidth=760&size=144592&status=done&style=none&width=380)<br />Figure2: The pipeline of literature curation 
 <a name="7JAwX"></a>
 ## Data startistics
 **Table 1. Statiditics of the distribution of biomarkers in GlioMarker**
@@ -75,13 +75,13 @@ To guarantee the high quality of data collection, all the data for GlioMarker ar
 | title | literature information | Varchar |   | Research title | Plasma miR-454-3p as a potential prognostic indicator in human glioma |
 | abstract | literature information | Varchar |   | Research abstract | Omission |
 | keywords | literature information | Varchar |   | Research keywords | MiR-454-3p; Glioma; Diagnosis; Prognosis |
-| gene_symbol | biomarker information | Varchar |   | Biomarker’s HUGO gene symbols | MIR454 |
-| biomarker | biomarker information | Varchar |   | Biomarker’s full and simple name | miR-454-3p |
+| gene_symbol | biomarker information | Varchar |   | Biomarker"s HUGO gene symbols | MIR454 |
+| biomarker | biomarker information | Varchar |   | Biomarker"s full and simple name | miR-454-3p |
 | decription | biomarker information | Varchar |   | Description of biomarker | Plasma miR-454-3p could be a novel potential diagnostic biomarker for glioma |
 | type_of_biomarker | biomarker information | Varchar |   | Biological type of biomarker (DNA, RNA, Protein...) | RNA Biomarkers |
 | type_of_rna_biomarker | biomarker information | Varchar |   | Biological type of RNA (mRNA, miRNA, lncRNA) | miRNA |
 | clinical_use | biomarker information | Varchar |   | Clinical use of the biomarker (Diagnositic, Therapeutic,Prognostic, Predictive) | Diagnositic,Prognostic |
-| level_of_evidence | biomarker information | Varchar |   | The evdience level of the biomarker(tier1, tier2, tier3, tier4) | tier 3， “Biomarker was verified in pre-clinical research (in vitro or in vivo models)” |
+| level_of_evidence | biomarker information | Varchar |   | The evdience level of the biomarker(tier1, tier2, tier3, tier4) | tier 3， "Biomarker was verified in pre-clinical research (in vitro or in vivo models)" |
 | reserch_region | clinical information | Varchar |   | The region where the biomarker research from | China |
 | total_number | clinical information | Integer |   | Number of patients | 70 |
 | male | clinical information | Integer |   | Number of male patients | 36 |

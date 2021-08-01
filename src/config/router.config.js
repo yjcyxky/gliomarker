@@ -37,11 +37,10 @@ export const asyncRouterMap = [
         meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: true }
       },
       {
-        path: '/download',
+        path: 'https://www.yuque.com/prophet-project/help/ix11s3',
         name: 'download',
         hidden: false,
-        component: () => import('@/views/about/Help'),
-        meta: { title: 'DOWNLOAD', icon: 'download', permission: ['dashboard'], keepAlive: false }
+        meta: { title: 'DOWNLOAD', icon: 'download', target: '_blank' }
       },
       {
         path: '/knowledge',
