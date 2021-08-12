@@ -228,7 +228,7 @@ export default {
     Knowledge: function() {
       const content = this.currentKnowledge.content
       if (content) {
-        return content.replace(/([②③④⑤⑥⑦⑧⑨⑩])/g, '<br/><br/>$1')
+        return content.replace(/; ([0-9]+\. )/g, ';<br/>$1')
       } else {
         return '<p style="display: flex; height: 100%; justify-content: center; align-items: center;"><span>Not found the knowledge.</span></p>'
       }

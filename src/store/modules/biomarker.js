@@ -102,13 +102,13 @@ const biomarker = {
         visible: true,
         align: 'center'
       },
-      {
-        title: 'Impact Factor',
-        dataIndex: 'if_2020',
-        key: 'if_2020',
-        visible: false,
-        align: 'center'
-      },
+      // {
+      //   title: 'Impact Factor',
+      //   dataIndex: 'if_2020',
+      //   key: 'if_2020',
+      //   visible: false,
+      //   align: 'center'
+      // },
       {
         title: 'Key Experiment',
         dataIndex: 'key_experiment',

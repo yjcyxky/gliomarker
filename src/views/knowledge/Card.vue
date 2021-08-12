@@ -18,7 +18,7 @@
         <a-col :span="4" class="right">
           <a-tooltip>
             <template slot="title"><span>Impact Factor</span></template>
-            {{ card.impactFactor || "Unknown" }}
+            {{ card.impactFactor || "" }}
           </a-tooltip>
         </a-col>
       </a-row>
@@ -201,7 +201,7 @@ export default {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    max-height: 55px;
+    height: 45px;
     overflow: hidden;
 
     span {
