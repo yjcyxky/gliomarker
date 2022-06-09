@@ -110,7 +110,7 @@ const labels = {
     'clinical_use',
     'level_of_evidence'
   ],
-  clinical: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'stage'],
+  clinical: ['research_region', 'total_number', 'male', 'female', 'mean_age', 'age', 'grade'],
   experimental: ['source', 'key_experiment'],
   disease: ['disease_classification', 'disease_type', 'disease_subtype'],
   statistics: ['sensitivity', 'specificity', 'area_under_the_curve', 'supplementary_statistics'],
