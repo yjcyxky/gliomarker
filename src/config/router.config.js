@@ -37,10 +37,13 @@ export const asyncRouterMap = [
         meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: true }
       },
       {
-        path: 'https://www.yuque.com/prophet-project/help/ix11s3',
+        path: '/download',
         name: 'download',
-        hidden: false,
-        meta: { title: 'DOWNLOAD', icon: 'download', target: '_blank' }
+        component: () => import('@/views/about/Help'),
+        props: route => ({
+          filename: 'docs/download.md'
+        }),
+        meta: { title: 'Download', icon: 'download', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/knowledge',
@@ -57,13 +60,6 @@ export const asyncRouterMap = [
         props: route => ({ paperId: route.params.paperId }),
         meta: { title: 'Knowledge Details', icon: 'snippets', permission: ['dashboard'], keepAlive: false }
       },
-      {
-        path: '/analysis',
-        name: 'analysis',
-        hidden: true,
-        component: () => import('@/views/about/Help'),
-        meta: { title: 'Analysis', icon: 'bar-chart', permission: ['dashboard'], keepAlive: true }
-      },
       // Help
       {
         path: '/about',
@@ -73,24 +69,42 @@ export const asyncRouterMap = [
         meta: { title: 'ABOUT', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
         children: [
           {
-            path: 'https://www.yuque.com/prophet-project/help/about-us',
+            path: '/about-us',
             name: 'about-us',
-            meta: { title: 'About us', target: '_blank', icon: 'team' }
+            component: () => import('@/views/about/Help'),
+            props: route => ({
+              filename: 'docs/about-us.md'
+            }),
+            meta: { title: 'About US', icon: 'user', permission: ['dashboard'], keepAlive: true }
           },
           {
-            path: 'https://www.yuque.com/prophet-project/help/about-gliomarker',
+            path: '/about-gliomarker',
             name: 'about-gliomarker',
-            meta: { title: 'About GlioMarker', target: '_blank', icon: 'project' }
-          },
-          {
-            path: 'https://www.yuque.com/prophet-project/changelog',
-            name: 'changelog',
-            meta: { title: 'ChangeLog', target: '_blank', icon: 'rocket' }
+            component: () => import('@/views/about/Help'),
+            props: route => ({
+              filename: 'docs/about-gliomarker.md'
+            }),
+            meta: { title: 'About GlioMarker', icon: 'project', permission: ['dashboard'], keepAlive: true }
           }
+          // {
+          //   path: 'https://www.yuque.com/prophet-project/help/about-us',
+          //   name: 'about-us',
+          //   meta: { title: 'About us', target: '_blank', icon: 'team' }
+          // },
+          // {
+          //   path: 'https://www.yuque.com/prophet-project/help/about-gliomarker',
+          //   name: 'about-gliomarker',
+          //   meta: { title: 'About GlioMarker', target: '_blank', icon: 'project' }
+          // },
+          // {
+          //   path: 'https://www.yuque.com/prophet-project/changelog',
+          //   name: 'changelog',
+          //   meta: { title: 'ChangeLog', target: '_blank', icon: 'rocket' }
+          // }
         ]
       },
       {
-        path: 'https://www.yuque.com/prophet-project/topics',
+        path: 'https://github.com/prophetdb-lab/docs.prophetdb.org/issues',
         name: 'feedback',
         meta: { title: 'FEEDBACK', target: '_blank', icon: 'message' }
       },
@@ -133,7 +147,7 @@ export const asyncRouterMap = [
         props: route => ({
           src: route.query.src,
           onloadfn: id => {
-            document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.3.66')
+            document.getElementById(id).contentWindow.postMessage({ hideHeader: true, hideNote: true }, 'http://data.3steps.cn')
           }
         }),
         meta: { title: 'Embeded Frame', icon: 'dot-chart', keepAlive: false }

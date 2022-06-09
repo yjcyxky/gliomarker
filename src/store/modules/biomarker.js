@@ -96,10 +96,31 @@ const biomarker = {
         align: 'center'
       },
       {
+        title: 'Disease Classification',
+        dataIndex: 'disease_classification',
+        key: 'disease_classification',
+        visible: true,
+        align: 'center'
+      },
+      {
+        title: 'Disease Type',
+        dataIndex: 'disease_type',
+        key: 'disease_type',
+        visible: false,
+        align: 'center'
+      },
+      {
+        title: 'Disease SubType',
+        dataIndex: 'disease_subtype',
+        key: 'disease_subtype',
+        visible: false,
+        align: 'center'
+      },
+      {
         title: 'RNA Type',
         dataIndex: 'type_of_rna_biomarker',
         key: 'type_of_rna_biomarker',
-        visible: true,
+        visible: false,
         align: 'center'
       },
       // {
@@ -127,20 +148,6 @@ const biomarker = {
         title: 'Down Effector',
         dataIndex: 'down_effector_or_targets',
         key: 'down_effector_or_targets',
-        visible: false,
-        align: 'center'
-      },
-      {
-        title: 'Glioma Type',
-        dataIndex: 'glioma_type',
-        key: 'glioma_type',
-        visible: false,
-        align: 'center'
-      },
-      {
-        title: 'Glioma SubType',
-        dataIndex: 'glioma_subtype',
-        key: 'glioma_subtype',
         visible: false,
         align: 'center'
       },
@@ -215,6 +222,7 @@ const biomarker = {
         align: 'center'
       }
     ],
+    totalItems: [],
     items: [],
     selected: [],
     loading: true,
@@ -242,10 +250,13 @@ const biomarker = {
     setBiomarkerList(state, payload) {
       state.items = orderBy(payload, 'gene_symbol', 'asc')
     },
+    setTotalItems(state, payload) {
+      state.totalItems = payload
+    },
     setLoading(state, payload) {
       state.loading = payload
     },
-    setTotalItems(state, payload) {
+    setTotal(state, payload) {
       state.total = payload
     },
     updateSearchOptions(state, payload) {
@@ -333,14 +344,16 @@ const biomarker = {
 
             // console.log('Query: ', payload, query)
 
-            const total = alasql(query, responseArray).length
+            const totalItems = alasql(query, responseArray)
+            const total = totalItems.length
 
             // ORDER BY if_2020 DESC, gene_symbol ASC
             alasql
-              .promise(query + ` ORDER BY gene_symbol ASC LIMIT ${limit} OFFSET ${offset}`, responseArray)
+              .promise(query + ` ORDER BY publication_time DESC LIMIT ${limit} OFFSET ${offset}`, responseArray)
               .then(res => {
                 commit('setBiomarkerList', res)
-                commit('setTotalItems', total)
+                commit('setTotal', total)
+                commit('setTotalItems', totalItems)
                 resolve(res)
               })
               .catch(error => {

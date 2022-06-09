@@ -47,6 +47,7 @@ export default {
 
       console.log('FullFrame: ', self.onloadfn)
       if (self.onloadfn) {
+        console.log('Exec onload function.')
         self.onloadfn(self.id)
       }
     }
@@ -83,11 +84,8 @@ export default {
 }
 
 .full-frame {
-  // padding: 10px;
-  width: 100%;
   height: 100%;
-  min-height: 630px;
-  // overflow: hidden;
+  width: 100%;
   border-radius: 5px;
 }
 </style>

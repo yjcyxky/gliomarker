@@ -17,10 +17,11 @@
     <a-row class="show-window">
       <a-row class="show-window-header">
         <img
+          style="display: none;"
           class="logo"
           :src="require('@/assets/img/knowledge-point.png')"
         />
-        <a-row class="news" style="font-size: 14px;">
+        <a-row class="news" style="font-size: 14px; display: none;">
           <a-row>Today News</a-row>
           <p class="slogan" v-html="news"></p>
         </a-row>

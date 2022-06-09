@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="links">
       <a href="#" target="_blank">Ran Lab</a>
-      <a href="https://github.com/disease-prophet" target="_blank">
+      <a href="https://github.com/prophetdb-lab" target="_blank">
         <a-icon type="github" /> Prophet
       </a>
       <a href="http://pgx.fudan.edu.cn" target="_blank">Shi Lab</a>
@@ -30,7 +30,7 @@ export default {
         {
           name: 'Prophet',
           version: 'latest',
-          repo: 'https://github.com/disease-prophet'
+          repo: 'https://github.com/prophetdb-lab'
         }
       ]
     }

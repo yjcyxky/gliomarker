@@ -63,7 +63,8 @@ export default {
     border-radius: 3px;
     padding: 15px 30px;
     background-color: #fff;
-    min-height: 500px;
+    height: calc(100vh - 90px);
+    overflow: scroll;
   }
 }
 </style>
@@ -95,7 +96,7 @@ export default {
     border-left: 0.25em solid #dfe2e5;
   }
 
-  ou,
+  ol,
   ul {
     list-style: disc;
     font-size: 16px;

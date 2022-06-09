@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+import csv
 import json
 from datetime import datetime, timezone
 
@@ -43,8 +44,15 @@ def gen_database(json_file):
 
 if __name__ == '__main__':
     json_file = './public/static/gliomarker.json'
-    db_file = './public/static/gliomarker-db-v6.json'
+    db_file = './public/static/gliomarker-db-v7.json'
+    csv_file = './public/static/gliomarker-db-v7.csv'
     data = gen_database(json_file)
 
     with open(db_file, 'w') as f:
         json.dump(data, f, cls=ComplexEncoder)
+
+    with open(csv_file, 'w') as f:
+        w = csv.DictWriter(f, data[0].keys())
+        w.writeheader()
+        for item in data:
+            w.writerow(item)

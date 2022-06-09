@@ -14,7 +14,7 @@
               icon="download"
               shape="circle"
               disabled
-              style="margin-right: 5px;"
+              style="margin-right: 5px; display: none;"
               type="primary"
               @click.native="downloadPaper(currentPaper.doi)"
             ></a-button>
@@ -25,6 +25,7 @@
               shape="round"
               icon="like"
               theme="filled"
+              style="display: none;"
               v-if="currentKnowledge.liked_num"
               type="danger"
             >
@@ -32,6 +33,7 @@
             </a-button>
             <a-button
               shape="round"
+              style="display: none;"
               icon="like"
               v-if="!currentKnowledge.liked_num"
             >
@@ -40,7 +42,7 @@
           </a-tooltip>
         </a-col>
       </a-row>
-      <a-row class="details" v-if="!onlyPaper">
+      <a-row class="details" v-if="!onlyPaper" style="display: none;">
         <span>Author: {{ formatName(currentKnowledge.owner) }}</span>
         <span>Editor: {{ formatName(currentKnowledge.editor) }}</span>
         <span>{{ currentKnowledge.date }}</span>
@@ -99,7 +101,7 @@
           </a-row>
         </a-col>
       </a-row>
-      <a-row class="show-window" v-if="!onlyPaper">
+      <a-row class="show-window" v-if="!onlyPaper" style="display: none;">
         <a-col class="detail" :xs="24" :sm="24" :md="24" :lg="5">
           <a-row class="item">
             <a-row class="title">Journal</a-row>
@@ -346,7 +348,7 @@ export default {
       line-height: 150%;
       font-size: 1rem;
       margin: 10px 0px;
-      max-height: 450px;
+      // max-height: 450px;
       overflow: scroll;
     }
 

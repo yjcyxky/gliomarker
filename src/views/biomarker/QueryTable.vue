@@ -159,7 +159,7 @@ export default {
     limit: function() {
       return this.pageSize
     },
-    ...mapState('biomarker', ['items', 'loading', 'total', 'columns'])
+    ...mapState('biomarker', ['items', 'loading', 'total', 'columns', 'totalItems'])
   },
   methods: {
     generateDataPortalURL,
@@ -188,14 +188,15 @@ export default {
       return csv
     },
     downloadAsJSON() {
-      var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.biomarkers))
+      var dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.totalItems))
       var dlAnchorElem = document.getElementById('downloadAnchorElem')
       dlAnchorElem.setAttribute('href', dataStr)
       dlAnchorElem.setAttribute('download', 'data.json')
       dlAnchorElem.click()
     },
     downloadAsCSV() {
-      const csv = this.json2csv(this.biomarkers)
+      const csv = this.json2csv(this.totalItems)
+      console.log(this.totalItems, csv)
       var dataStr = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv)
       var dlAnchorElem = document.getElementById('downloadAnchorElem')
       dlAnchorElem.setAttribute('href', dataStr)
@@ -205,8 +206,8 @@ export default {
     onSelectColumn(name, event) {
       console.log('onSelectColumn: ', name, event)
       const status = event.target.checked
-      if (status && this.filteredColumns.length + 1 > 10) {
-        this.$message.warning('Maximum number of selectable columns is 10')
+      if (status && this.filteredColumns.length + 1 > 20) {
+        this.$message.warning('Maximum number of selectable columns is 20')
         return
       }
 

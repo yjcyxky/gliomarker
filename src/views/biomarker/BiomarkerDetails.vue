@@ -14,7 +14,13 @@
                     </a-tag>
                   </a-col>
                   <a-col :xs="24" :sm="12" :md="18" :lg="18" v-if="label !== 'knowledge_points'">
-                    <span>{{ biomarker[label] }}</span>
+                    <span v-if="label == 'doi'">
+                      <a :href="'https://doi.org/' + biomarker[label]" target="_blank">{{ biomarker[label] }}</a>
+                    </span>
+                    <span v-else-if="label == 'pmid'">
+                      <a :href="'https://pubmed.ncbi.nlm.nih.gov/' + biomarker[label]" target="_blank">{{ biomarker[label] }}</a>
+                    </span>
+                    <span v-else>{{ biomarker[label] }}</span>
                   </a-col>
                   <a-col :xs="24" :sm="12" :md="18" :lg="18" v-if="label === 'knowledge_points'">
                     <p style="text-align: justify" v-html="formatKnowledgePoints(biomarker[label])"></p>
@@ -93,7 +99,7 @@ import FullFrame from './FullFrame'
 import { generateDataPortalURL, formatGeneSymbol } from './utils'
 import Ontology from './Ontology'
 
-const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge']
+const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge', 'publication']
 const labels = {
   general: [
     'biomarker',
@@ -108,7 +114,8 @@ const labels = {
   experimental: ['source', 'key_experiment'],
   disease: ['disease_classification', 'disease_type', 'disease_subtype'],
   statistics: ['sensitivity', 'specificity', 'area_under_the_curve', 'supplementary_statistics'],
-  knowledge: ['up_regulator', 'down_effector_or_targets', 'knowledge_points']
+  knowledge: ['up_regulator', 'down_effector_or_targets', 'knowledge_points'],
+  publication: ['title', 'journal', 'publication_time', 'pmid', 'doi']
 }
 const labelDict = {
   type_of_rna_biomarker: 'Type of RNA Biomarker',
@@ -140,17 +147,17 @@ export default {
       geneSymbols: [],
       geneSymbol: '',
       biomarker: {},
-      activeKey: ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge'],
+      activeKey: ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge', 'publication'],
       allKeys,
       labelDict,
       labels,
       onload: function(id) {
         console.log('DataPortal: ', id)
-        // document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://data.3steps.cn')
-        document.getElementById(id).contentWindow.postMessage({ hideHeader: true }, 'http://47.117.3.66')
+        document.getElementById(id).contentWindow.postMessage({ hideHeader: true, hideNote: true }, 'http://data.3steps.cn')
+        // document.getElementById(id).contentWindow.postMessage({ hideHeader: true, hideNote: true }, 'http://47.117.3.66')
       },
       currentGeneSymbol: '',
-      paperActive: true
+      paperActive: false
     }
   },
   methods: {
@@ -159,7 +166,7 @@ export default {
     ...mapActions('biomarker', ['getBiomarker']),
     buildGeneQueryUrl(hugoGeneSymbol) {
       const baseUrl = 'http://www.fudan-pgx.org/premedkb/index.html#/search/result'
-      const label = '?view=widget&hideHeader=true'
+      const label = '?view=widget&hideHeader=true&hideNote=true'
       const queryStr = '&queryType=3&num=1&step=1&term=%27' + hugoGeneSymbol + '%27%5Bgene%5D'
       return baseUrl + label + queryStr
     },
@@ -217,11 +224,11 @@ export default {
 <style lang="less" scoped>
 .biomarker-details {
   width: 100%;
-  height: 100%;
   background-color: #fff;
   border-radius: 5px;
   padding: 10px;
-  min-height: 620px;
+  height: calc(100vh - 90px);
+  overflow: scroll;
 
   .ant-tabs-content {
     overflow: scroll;
@@ -257,6 +264,10 @@ export default {
 
 <style lang="less">
 .biomarker-details {
+  .full-frame {
+    height: calc(100vh - 200px);
+  }
+
   .curation-container {
     display: flex;
     flex-direction: row;
