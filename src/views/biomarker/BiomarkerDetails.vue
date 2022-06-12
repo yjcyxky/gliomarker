@@ -83,7 +83,8 @@
               <a href="http://gepia.cancer-pku.cn/index.html" target="_blank">GEPIA</a>)
             </span>
           </a-row>
-          <full-frame :src="buildGepiaURL(currentGeneSymbol)"></full-frame>
+          <!-- <full-frame :src="buildGepiaURL(currentGeneSymbol)"></full-frame> -->
+          <gepia></gepia>
         </a-row>
         <a-empty v-else />
       </a-tab-pane>
@@ -98,6 +99,7 @@ import v from 'voca'
 import FullFrame from './FullFrame'
 import { generateDataPortalURL, formatGeneSymbol } from './utils'
 import Ontology from './Ontology'
+import Gepia from './Gepia'
 
 const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge', 'publication']
 const labels = {
@@ -129,11 +131,12 @@ export default {
   components: {
     KnowledgeDetail,
     FullFrame,
-    Ontology
+    Ontology,
+    Gepia
   },
   props: {
     biomarkerId: {
-      type: String,
+      type: [String, Number],
       required: true
     },
     tagName: {

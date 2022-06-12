@@ -89,3 +89,11 @@ export default {
   border-radius: 5px;
 }
 </style>
+
+<style lang="less">
+.ant-pro-grid-content {
+  .full-frame {
+    height: calc(100vh - 90px);
+  }
+}
+</style>

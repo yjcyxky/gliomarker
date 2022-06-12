@@ -16,7 +16,7 @@ const formatFilters = function(values) {
   })
 }
 
-const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker', 'journal', 'publication_time']
+const filterItems = ['type_of_biomarker', 'level_of_evidence', 'research_region', 'source', 'type_of_rna_biomarker', 'journal', 'publication_time', 'disease_classification']
 
 const biomarker = {
   namespaced: true,
@@ -77,7 +77,7 @@ const biomarker = {
         title: 'Level',
         dataIndex: 'level_of_evidence',
         key: 'level_of_evidence',
-        visible: true,
+        visible: false,
         align: 'center',
         scopedSlots: { customRender: 'level' }
       },
@@ -349,7 +349,7 @@ const biomarker = {
 
             // ORDER BY if_2020 DESC, gene_symbol ASC
             alasql
-              .promise(query + ` ORDER BY publication_time DESC LIMIT ${limit} OFFSET ${offset}`, responseArray)
+              .promise(query + ` ORDER BY type_of_biomarker ASC LIMIT ${limit} OFFSET ${offset}`, responseArray)
               .then(res => {
                 commit('setBiomarkerList', res)
                 commit('setTotal', total)

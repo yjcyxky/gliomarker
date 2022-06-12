@@ -19,14 +19,14 @@ export const asyncRouterMap = [
         name: 'home',
         hidden: false,
         component: () => import('@/views/dashboard/Home'),
-        meta: { title: 'HOME', icon: 'home', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'Home', icon: 'home', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker',
         name: 'biomarker',
         hidden: false,
         component: () => import('@/views/biomarker/QueryTable'),
-        meta: { title: 'BIOMARKER', icon: 'filter', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'BioMarker', icon: 'filter', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/biomarker-details/:biomarkerId',
@@ -50,7 +50,7 @@ export const asyncRouterMap = [
         name: 'knowledge',
         hidden: false,
         component: () => import('@/views/knowledge/SearchPage'),
-        meta: { title: 'CURATION', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
+        meta: { title: 'Curation', icon: 'radar-chart', permission: ['dashboard'], keepAlive: true }
       },
       {
         path: '/knowledge/:paperId',
@@ -66,7 +66,7 @@ export const asyncRouterMap = [
         name: 'about',
         hidden: false,
         component: RouteView,
-        meta: { title: 'ABOUT', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
+        meta: { title: 'About', keepAlive: false, icon: 'question-circle', permission: ['dashboard'] },
         children: [
           {
             path: '/about-us',
@@ -106,7 +106,7 @@ export const asyncRouterMap = [
       {
         path: 'https://github.com/prophetdb-lab/docs.prophetdb.org/issues',
         name: 'feedback',
-        meta: { title: 'FEEDBACK', target: '_blank', icon: 'message' }
+        meta: { title: 'Feedback', target: '_blank', icon: 'message' }
       },
       // Exception
       {
