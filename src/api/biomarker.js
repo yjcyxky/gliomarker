@@ -19,8 +19,10 @@ class BiomarkerService {
     return new Promise((resolve, reject) => {
       this.getBiomarkerList()
         .then(response => {
+          console.log('Get biomarker with pmid: ', pmid)
           const items = filter(response, item => {
-            return item.pmid === pmid
+            // pmid may be a string or number
+            return item.pmid.toString() === pmid.toString()
           })
 
           console.log('getBiomarker: ', response, items)

@@ -84,7 +84,7 @@
             </span>
           </a-row>
           <!-- <full-frame :src="buildGepiaURL(currentGeneSymbol)"></full-frame> -->
-          <gepia></gepia>
+          <gepia-viewer :gene="currentGeneSymbol"></gepia-viewer>
         </a-row>
         <a-empty v-else />
       </a-tab-pane>
@@ -143,6 +143,10 @@ export default {
       type: String,
       required: false,
       default: '1'
+    },
+    queriedGene: {
+      type: String,
+      required: false
     }
   },
   data() {
@@ -204,7 +208,8 @@ export default {
       this.$router.push({
         name: 'biomarker-details',
         query: {
-          tagName: activeKey
+          tagName: activeKey,
+          queriedGene: this.currentGeneSymbol
         }
       })
     }
@@ -214,7 +219,11 @@ export default {
       .then(response => {
         this.biomarker = response
         console.log('BiomarkerDetails: ', this.biomarkerId, this.biomarker)
-        this.selectGeneSymbol(this.formatGeneSymbol(this.biomarker.gene_symbol)[0])
+        if (this.queriedGene) {
+          this.currentGeneSymbol = this.queriedGene
+        } else {
+          this.selectGeneSymbol(this.formatGeneSymbol(this.biomarker.gene_symbol)[0])
+        }
       })
       .catch(error => {
         console.log('Get Biomarker (Error): ', error)

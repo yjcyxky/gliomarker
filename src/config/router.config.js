@@ -33,7 +33,7 @@ export const asyncRouterMap = [
         name: 'biomarker-details',
         hidden: true,
         component: () => import('@/views/biomarker/BiomarkerDetails'),
-        props: route => ({ biomarkerId: route.params.biomarkerId, tagName: route.query.tagName }),
+        props: route => ({ biomarkerId: route.params.biomarkerId, tagName: route.query.tagName, queriedGene: route.query.queriedGene }),
         meta: { title: 'Biomarker Details', icon: 'sketch', permission: ['dashboard'], keepAlive: true }
       },
       {
