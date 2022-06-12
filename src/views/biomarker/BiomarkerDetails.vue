@@ -99,7 +99,7 @@ import v from 'voca'
 import FullFrame from './FullFrame'
 import { generateDataPortalURL, formatGeneSymbol } from './utils'
 import Ontology from './Ontology'
-import Gepia from './Gepia'
+import GepiaViewer from './GepiaViewer'
 
 const allKeys = ['general', 'clinical', 'experimental', 'disease', 'statistics', 'knowledge', 'publication']
 const labels = {
@@ -132,7 +132,7 @@ export default {
     KnowledgeDetail,
     FullFrame,
     Ontology,
-    Gepia
+    GepiaViewer
   },
   props: {
     biomarkerId: {
