@@ -1,0 +1,15 @@
+,gene_symbol,type_of_biomarker,publication
+116,GFAP,Protein Biomarker,7
+143,IDH1,DNA Biomarker,5
+145,IDH2,DNA Biomarker,3
+179,MAP2,Protein Biomarker,3
+183,MGMT,Epigenic Biomarker,4
+189,MIR124,RNA Biomarker,3
+205,MIR15B,RNA Biomarker,3
+209,MIR181B1,RNA Biomarker,3
+229,MIR21,RNA Biomarker,7
+230,MIR210,RNA Biomarker,4
+233,MIR221,RNA Biomarker,3
+327,OLIG2,Protein Biomarker,4
+357,PRKCA,DNA Biomarker,3
+386,S100A8,Protein Biomarker,3
