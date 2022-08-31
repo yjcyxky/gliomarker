@@ -1,3 +1,8 @@
+## Update Logs
+- 2022.06.12 (the Literature covers the period 2021.06-2022.05)
+
+- 2021.10.05 (the Literature covers the period 1989.05-2021.06)
+
 ## Background
 ### What is Glioma
 
@@ -21,6 +26,11 @@ A caveat to this diagram is that the diagnostic “flow” does not necessarily 
 <div style="text-align: center; margin-bottom: 10px;">
     <img src="/static/docs/images/category.png" width="500"/>
     <p>Based on Biomarker terminology, FDA</p>
+</div>
+
+<div style="text-align: center; margin-bottom: 10px;">
+    <img src="/static/docs/images/biomarker-table.png" width="500"/>
+    <p>Cagney, D. N. et al. The FDA NIH Biomarkers, EndpointS, and other Tools (BEST) resource in neuro-oncology. Neuro-Oncology20, 1162–1172 (2018)</p>
 </div>
 
 ### Challenges in Gliomas Biomarker Research
@@ -60,7 +70,7 @@ All the data for GlioMarker was collected from the public database PubMed (https
     <img src="/static/docs/images/statistics.png"/>
 </div>
 
-### List of genes/proteins reported as biomarker/signature in at least three different studies
+### List of genes/proteins reported as biomarkers/signatures in at least three different studies
 
 <div style="text-align: center; margin-bottom: 10px;">
     <img src="/static/docs/images/biomarker-list.png"/>
@@ -69,5 +79,5 @@ All the data for GlioMarker was collected from the public database PubMed (https
 ## Items in GlioMarker
 
 <div style="text-align: center; margin-bottom: 10px;">
-    <img src="/static/docs/images/items.png"/>
+    <img src="/static/docs/images/items.png" width="70%"/>
 </div>
